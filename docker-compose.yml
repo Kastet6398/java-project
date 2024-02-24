@@ -1,0 +1,8 @@
+version: '3.9'
+
+services:
+  javaapp:
+    image: javaapp
+    container_name: javaapp
+    depends_on:
+      - db
