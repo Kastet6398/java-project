@@ -11,4 +11,8 @@ public class ApiController {
         return "Greetings from Spring Boot!";
     }
 
+    @GetMapping("/new")
+    public String newRoute() {
+        return "Greetings from new route!";
+    }
 }
