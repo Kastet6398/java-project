@@ -9,4 +9,9 @@ public class ApplicationTest {
     public void testSomething() {
         System.out.println("Hello, test!");
     }
+
+    @Test
+    public void testNewRoute() {
+        System.out.println("Hello, new route!");
+    }
 }
