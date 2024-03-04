@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -32,7 +34,9 @@ public class VisualControllerTest {
 
         assertNotNull(document.getElementsByClass("title"), "Element with ID 'title' not found");
         assertEquals(1, document.getElementsByClass("title").size(), "There are more than one title");
+        assertEquals("Hello, world!", Objects.requireNonNull(document.getElementsByClass("title").first()).text(), "The title is incorrect");
         assertNotNull(document.getElementsByClass("description"), "Element with ID 'description' not found");
         assertEquals(1, document.getElementsByClass("description").size(), "There are more than one description");
+        assertEquals("This is the very beginning of the story...", Objects.requireNonNull(document.getElementsByClass("description").first()).text(), "The description is incorrect");
     }
 }
