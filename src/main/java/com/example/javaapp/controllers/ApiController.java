@@ -1,18 +1,18 @@
 package com.example.javaapp.controllers;
 
+import com.example.javaapp.models.BaseModel;
+import com.example.javaapp.models.MessageModel;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/")
 public class ApiController {
 
     @GetMapping("/")
-    public String index() {
-        return "Greetings from Spring Boot!";
-    }
-
-    @GetMapping("/new")
-    public String newRoute() {
-        return "Greetings from new route!";
+    public BaseModel index() {
+        return new MessageModel("Hi!", true);
     }
 }
