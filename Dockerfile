@@ -1,3 +1,8 @@
 FROM maven AS build
 COPY . .
-ENTRYPOINT mvn spring-boot:run
+RUN mvn clean package -DskipTests -Denable-preview
+
+FROM openjdk:21
+COPY --from=build /target/javaapp.jar javaapp.jar
+EXPOSE 8090
+ENTRYPOINT ["java","--enable-preview","-jar","javaapp.jar"]
