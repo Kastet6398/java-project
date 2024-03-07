@@ -20,27 +20,13 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/auth")
 public class AuthUiController {
-    private final AuthenticationManager authenticationManager;
-
-    private final UserService userService;
-    private final UserRepository userRepository;
-
-    @Autowired
-    public AuthUiController(AuthenticationManager authenticationManager, UserService userService, UserRepository userRepository) {
-        this.authenticationManager = authenticationManager;
-        this.userService = userService;
-        this.userRepository = userRepository;
-    }
-
     @GetMapping("/signup")
-    public String showSignupForm(Model model) {
-        model.addAttribute("signupRequest", new SignupRequest());
+    public String showSignupForm() {
         return "signup";
     }
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("loginRequest", new LoginRequest());
+    public String showLoginForm() {
         return "login";
     }
 
