@@ -4,7 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48d4b3a7-341e-490a-aa85-65108c088c39" name="Changes" comment="" />
+    <list default="true" id="48d4b3a7-341e-490a-aa85-65108c088c39" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/ui/AuthUiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/UserResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/HomeApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/SignupRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/LoginAttempt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/LoginAttemptResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/MessageDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/SignupRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/SignupRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/LoginAttemptRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/LoginService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/utils/JwtHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/utils/JwtHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/changelogs/2_update_tables.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/changelogs/2_update_tables.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/config/JwtAuthFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/config/JwtAuthFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/HomeApiController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/SignupRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/dto/LoginAttempt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/dto/LoginAttemptResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/dto/LoginRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/dto/LoginRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/dto/MessageDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/dto/SignupRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/dto/SignupRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/repositories/LoginAttemptRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/services/LoginService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/changelogs/2_update_tables.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/changelogs/2_update_tables.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/signup.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +104,7 @@
     "TestNG.ApiControllerTest.executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "DEV-5",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "/home/konstantin/IdeaProjects/java project/src/test/java",
     "last_opened_file_path": "/home/konstantin/Documents/IdeaProjects/java project",
@@ -95,11 +133,11 @@
       <recent name="com.example.javaapp" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.javaapp.models.dto" />
+      <recent name="com.example.javaapp.controllers.ui" />
       <recent name="com.example.javaapp.controllers.api" />
       <recent name="com.example.javaapp.exceptions" />
-      <recent name="com.example.javaapp.models.dto" />
       <recent name="com.example.javaapp.tests" />
-      <recent name="com.example.javaapp.controllers" />
     </key>
   </component>
   <component name="RunManager">

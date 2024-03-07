@@ -1,41 +1,38 @@
 package com.example.javaapp.controllers.api;
 
 import com.example.javaapp.models.dto.*;
-import com.example.javaapp.models.services.LoginService;
+import com.example.javaapp.models.entities.User;
+import com.example.javaapp.models.repositories.UserRepository;
 import com.example.javaapp.models.services.UserService;
 import com.example.javaapp.utils.JwtHelper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
     private final UserService userService;
-    private final LoginService loginService;
 
-    public AuthController(AuthenticationManager authenticationManager, UserService userService, LoginService loginService) {
+    public AuthController(AuthenticationManager authenticationManager, UserService userService,
+                          UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
-        this.loginService = loginService;
+        this.userRepository = userRepository;
     }
 
     @Operation(summary = "Signup user")
@@ -44,9 +41,11 @@ public class AuthController {
     @ApiResponse(responseCode = "409", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     @PostMapping("/signup")
-    public ResponseEntity<Void> signup(@Valid @RequestBody SignupRequest requestDto) {
-        userService.signup(requestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public Object signup(@Valid @RequestBody SignupRequest requestDto, HttpServletResponse response) {
+        User user = userService.signup(requestDto);
+        String token = JwtHelper.generateToken(user.email());
+        response.addCookie(new Cookie("token", token));
+        return ResponseEntity.ok(new LoginResponse(user.email(), token));
     }
 
     @Operation(summary = "Authenticate user and return token")
@@ -55,33 +54,38 @@ public class AuthController {
     @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     @PostMapping(value = "/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
-        } catch (BadCredentialsException e) {
-            loginService.addLoginAttempt(request.email(), false);
-            throw e;
-        }
+    public Object login(@Valid @RequestBody LoginRequest request, HttpServletResponse response) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
         String token = JwtHelper.generateToken(request.email());
-        loginService.addLoginAttempt(request.email(), true);
+
+        response.addCookie(new Cookie("token", token));
         return ResponseEntity.ok(new LoginResponse(request.email(), token));
     }
 
-    @Operation(summary = "Get recent login attempts")
+    @Operation(summary = "Returns the user by token cookie")
     @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
-    @ApiResponse(responseCode = "403", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))//forbidden
+    @ApiResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    @GetMapping(value = "/loginAttempts")
-    public ResponseEntity<List<LoginAttemptResponse>> loginAttempts(@RequestHeader("Authorization") String token) {
-        String email = JwtHelper.extractUsername(token.replace("Bearer ", ""));
-        List<LoginAttempt> loginAttempts = loginService.findRecentLoginAttempts(email);
-        return ResponseEntity.ok(convertToDTOs(loginAttempts));
+    @GetMapping(value = "/user")
+    public Object getUser(@CookieValue(value = "token", defaultValue = "", required = false) String token) {
+        if (token.isBlank()) {
+            return ResponseEntity.ok().build();
+        }
+        User user = userRepository.findByEmail(JwtHelper.extractUsername(token)).orElse(null);
+        return user != null ? ResponseEntity.ok(new UserResponse(user.name(), user.email(), user.phone())) : ResponseEntity.ok().build();
     }
 
-    private List<LoginAttemptResponse> convertToDTOs(List<LoginAttempt> loginAttempts) {
-        return loginAttempts.stream()
-                .map(LoginAttemptResponse::convertToDTO)
-                .collect(Collectors.toList());
+    @Operation(summary = "Logout user")
+    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
+    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+    @GetMapping(value = "/logout")
+    public Object logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", "");
+        cookie.setMaxAge(-1);
+        response.addCookie(cookie);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

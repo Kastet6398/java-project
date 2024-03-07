@@ -1,11 +1,12 @@
 package com.example.javaapp.models.repositories;
 
-import java.util.Optional;
-
 import com.example.javaapp.models.entities.User;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
+
+import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class UserRepository {
@@ -19,7 +20,7 @@ public class UserRepository {
         this.jdbcClient = jdbcClient;
     }
 
-    public void add(User user) {
+    public User add(User user) {
         long affected = jdbcClient.sql(INSERT)
                 .param("name", user.name())
                 .param("email", user.email())
@@ -28,6 +29,11 @@ public class UserRepository {
                 .update();
 
         Assert.isTrue(affected == 1, "Could not add user.");
+        Map<String, Object> result = jdbcClient.sql(FIND_BY_EMAIL)
+                .param("email", user.email())
+                .query()
+                .singleRow();
+        return new User((String) result.get("name"), (String) result.get("email"), (String) result.get("password"), (String) result.get("phone"));
     }
 
     public Optional<User> findByEmail(String email) {

@@ -1,8 +1,8 @@
 package com.example.javaapp.models.services;
 import java.util.Optional;
 
-import com.example.javaapp.controllers.api.SignupRequest;
 import com.example.javaapp.exceptions.DuplicateException;
+import com.example.javaapp.models.dto.SignupRequest;
 import com.example.javaapp.models.entities.User;
 import com.example.javaapp.models.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,16 +22,16 @@ public class UserService {
     }
 
     @Transactional
-    public void signup(SignupRequest request) {
+    public User signup(SignupRequest request) {
         String email = request.email();
         Optional<User> existingUser = repository.findByEmail(email);
         if (existingUser.isPresent()) {
-            throw new DuplicateException(String.format("User with the email address '%s' already exists.", email));
+            throw new DuplicateException(STR."User with the email address '\{email}' already exists.");
         }
 
         String hashedPassword = passwordEncoder.encode(request.password());
         User user = new User(request.name(), email, hashedPassword, request.phone());
-        repository.add(user);
+        return repository.add(user);
     }
 
 }

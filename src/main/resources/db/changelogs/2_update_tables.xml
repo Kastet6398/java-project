@@ -6,7 +6,7 @@
   <changeSet id="20231212-0" author="Mina">
     <sql>
       ALTER TABLE authentication.user
-      ADD COLUMN phone VARCHAR(25) NOT NULL;
+      ADD COLUMN IF NOT EXISTS phone VARCHAR(25) NOT NULL;
     </sql>
     <rollback>
     </rollback>
