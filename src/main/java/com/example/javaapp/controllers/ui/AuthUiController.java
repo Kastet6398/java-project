@@ -38,27 +38,10 @@ public class AuthUiController {
         return "signup";
     }
 
-    @PostMapping("/signup")
-    public String signup(@Valid @ModelAttribute SignupRequest requestDto) {
-        userService.signup(requestDto);
-        return "redirect:/auth/login";
-    }
-
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("loginRequest", new LoginRequest());
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(@Valid @ModelAttribute LoginRequest request, HttpServletResponse response, Model model) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
-
-        String token = JwtHelper.generateToken(request.email());
-
-        response.addCookie(new Cookie("token", token));
-        model.addAttribute("loginResponse", new LoginResponse(request.email(), token));
-        return "redirect:/";
     }
 
     @GetMapping("/logout")
