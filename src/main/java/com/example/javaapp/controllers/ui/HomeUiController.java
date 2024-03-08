@@ -9,5 +9,9 @@ public class HomeUiController {
     public String index() {
         return "index.html";
     }
+    @GetMapping("/addContact")
+    public String addContact() {
+        return "add-friends.html";
+    }
 
 }
