@@ -9,4 +9,5 @@ public class HomeUiController {
     public String index() {
         return "index.html";
     }
+
 }
