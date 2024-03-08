@@ -1,83 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org" layout:decorate="~{base}" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/homePage.css">
-    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js" defer></script>
-    <script src="https://cdn.tailwindcss.com" defer></script>
-    <script src="/static/js/homePage.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-<div class="container max-w-7xl pt-5 pb-12 mb-12">
-    <div class="gradient-line">
-    </div>
-    <div class="row">
-        <div class="col">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 124.8372 55.2489" class="logo">
-                <style>
-                    .draw-path {
-                        --length: 100;
-                        stroke-dasharray: var(--length) var(--length);
-                        stroke-dashoffset: var(--path-from);
-                        filter: blur(10px);
-                        fill: none;
-                        animation: draw 1.5s infinite ease-in-out;
-                    }
-
-                    .u-path {
-                        --path-from: calc(var(--length) * 3px);
-                        --path-to: var(--length);
-                    }
-
-                    .seven-path {
-                        --path-from: calc(var(--length) * -3px);
-                        --path-to: calc(var(--length) * -1px);
-                        animation-delay: 0.4s;
-                    }
-
-                    @keyframes draw {
-                        from {
-                            stroke-dashoffset: var(--path-from);
-                        }
-
-                        to {
-                            stroke-dashoffset: var(--path-to);
-                            opacity: 0;
-                        }
-                    }
-                </style>
-                <defs>
-                    <linearGradient id="seven-gradient" gradientUnits="userSpaceOnUse" x1="23.5345" y1="27.9014" x2="121.9345" y2="27.9014" gradientTransform="matrix(1 0 0 -1 0 55.8028)">
-                        <stop offset="0" style="stop-color: #f0ebab" />
-                        <stop offset="0.4" style="stop-color: #f3b4ce" />
-                        <stop offset="1" style="stop-color: #96cfca" />
-                    </linearGradient>
-                    <clipPath id="clip-seven">
-                        <path d="M102.2345,2.9014v9.8h9.6v23.6l-65.3-33.3l-0.3-0.1h-22.7l32.4,16.3l66,33.7v-50H102.2345z" />
-                    </clipPath>
-                    <clipPath id="clip-u">
-                        <path d="M52.3345,38.5014c0,2.2091-1.7909,4-4,4h-31.6c-2.2091,0-4-1.7909-4-4v-35.6h-9.8v35.6c0,7.7,6.2,13.9,13.8,13.9h31.6c7.6,0,13.8-6.2,13.8-13.9v-8.1l-9.8-5V38.5014z" />
-                    </clipPath>
-                </defs>
-
-                <g fill="rgba(255,255,255,0.08)">
-                    <path d="M102.2345,2.9014v9.8h9.6v23.6l-65.3-33.3l-0.3-0.1h-22.7l32.4,16.3l66,33.7v-50H102.2345z" />
-                    <path d="M52.3345,38.5014c0,2.2091-1.7909,4-4,4h-31.6c-2.2091,0-4-1.7909-4-4v-35.6h-9.8v35.6c0,7.7,6.2,13.9,13.8,13.9h31.6c7.6,0,13.8-6.2,13.8-13.9v-8.1l-9.8-5V38.5014z" />
-                </g>
-
-                <path clip-path="url(#clip-seven)" class="draw-path seven-path" stroke="url(#seven-gradient)" stroke-width="11" stroke-miterlimit="10" d="M102.0318,7.8102h14.9001v36.7666L25.5799-1.9312" pathLength="100" />
-                <path clip-path="url(#clip-u)" class="draw-path u-path" stroke="#fff" stroke-width="11" stroke-miterlimit="10" d="M7.8842,2.7939l0.0451,35.4694c0,5.0171,3.8335,9.0363,8.8506,9.0363h31.1442c5.0171,0,9.0843-4.0672,9.0843-9.0843V24.9046" pathLength="100" />
-                <path clip-path="url(#clip-seven)" class="draw-path seven-path" stroke="url(#seven-gradient)" stroke-width="11" stroke-miterlimit="10" d="M102.0318,7.8102h14.9001v36.7666L25.5799-1.9312" pathLength="100" />
-                <path clip-path="url(#clip-u)" class="draw-path u-path" stroke="#fff" stroke-width="11" stroke-miterlimit="10" d="M7.8842,2.7939l0.0451,35.4694c0,5.0171,3.8335,9.0363,8.8506,9.0363h31.1442c5.0171,0,9.0843-4.0672,9.0843-9.0843V24.9046" pathLength="100" />
-                <path clip-path="url(#clip-seven)" class="draw-path seven-path" stroke="url(#seven-gradient)" stroke-width="11" stroke-miterlimit="10" d="M102.0318,7.8102h14.9001v36.7666L25.5799-1.9312" pathLength="100" />
-                <path clip-path="url(#clip-u)" class="draw-path u-path" stroke="#fff" stroke-width="11" stroke-miterlimit="10" d="M7.8842,2.7939l0.0451,35.4694c0,5.0171,3.8335,9.0363,8.8506,9.0363h31.1442c5.0171,0,9.0843-4.0672,9.0843-9.0843V24.9046" pathLength="100" />
-            </svg>
-        </div>
-    </div>
+<div layout:fragment="content">
     <div class="row g-4 mt-3">
         <div class="col-lg-4">
             <div class="gradient-border-card">
@@ -327,13 +254,6 @@
             </div>
         </div>
 
-    </div>
-    <div class="gradient-background__wrapper">
-        <div class="gradient-background">
-            <div class="gradient-background__shape gradient-background__shape--1"></div>
-            <div class="gradient-background__shape gradient-background__shape--2"></div>
-        </div>
-        <div class="gradient-background__noise"></div>
     </div>
 </div>
 
