@@ -13,5 +13,13 @@ public class HomeUiController {
     public String addContact() {
         return "add-friends.html";
     }
+    @GetMapping("/Statistics")
+    public String Statistics() {
+        return "add-friends.html";
+    }
+    @GetMapping("/Notes")
+    public String Notes() {
+        return "add-friends.html";
+    }
 
 }
