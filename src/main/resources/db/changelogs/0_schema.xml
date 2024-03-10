@@ -6,9 +6,11 @@
     <changeSet id="20231212-0" author="Mina">
         <sql>
             CREATE SCHEMA IF NOT EXISTS authentication;
+            CREATE SCHEMA IF NOT EXISTS main;
         </sql>
         <rollback>
             DROP SCHEMA IF EXISTS authentication;
+            DROP SCHEMA IF EXISTS main;
         </rollback>
     </changeSet>
 </databaseChangeLog>

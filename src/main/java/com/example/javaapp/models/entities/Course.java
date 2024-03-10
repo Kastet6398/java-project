@@ -1,18 +1,15 @@
 package com.example.javaapp.models.entities;
 
-import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 @Entity
-public record Task(
+public record Course(
         String title,
         String description,
         long author,
-        @Temporal(TemporalType.TIMESTAMP)
-        LocalDateTime deadline,
         @Id
         @GeneratedValue
-        long courseId,
         long id) {
 }

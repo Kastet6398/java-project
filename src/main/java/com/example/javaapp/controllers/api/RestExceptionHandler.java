@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.javaapp.exceptions.DuplicateException;
+import com.example.javaapp.exceptions.InternalServerException;
 import com.example.javaapp.exceptions.NotFoundException;
 import com.example.javaapp.models.dto.ApiErrorResponse;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,12 @@ public class RestExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleBadCredentialsException() {
         return ResponseEntity.status(UNAUTHORIZED)
                 .body(new ApiErrorResponse(UNAUTHORIZED.value(), "Invalid username or password"));
+    }
+
+    @ExceptionHandler(InternalServerException.class)
+    public ResponseEntity<ApiErrorResponse> handleInternalServerException() {
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR)
+                .body(new ApiErrorResponse(INTERNAL_SERVER_ERROR.value(), "Internal server error"));
     }
 
     @ExceptionHandler(DuplicateException.class)

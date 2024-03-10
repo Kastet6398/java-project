@@ -5,22 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48d4b3a7-341e-490a-aa85-65108c088c39" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/ui/CoursesUiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/CourseController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/TaskController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/exceptions/InternalServerException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/CourseRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/CourseResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/TaskRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/TaskResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/Course.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/CourseRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/CourseService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/TaskService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/db/changelogs/3_create_course_and_task_tables.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/homePage.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/loginAndSignUp.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/NEW.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/courses.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/homePage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/RestExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/TaskRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/changelog-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/changelog-master.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/changelogs/0_schema.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/changelogs/0_schema.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/RestExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/RestExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/entities/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/entities/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/changelog-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/changelog-master.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/changelogs/0_schema.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/changelogs/0_schema.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +54,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="DEV-8-rollback" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -49,7 +63,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -66,27 +80,31 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Application.executor": "Run",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Docker.Dockerfile build.executor": "Run",
-    "Docker.Dockerfile: Compose Deployment.executor": "Run",
-    "Maven.javaProject [help].executor": "Run",
-    "Maven.javaProject [test].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "TestNG.ApiControllerTest.executor": "Run",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "Dev-7",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "/home/konstantin/IdeaProjects/java project/src/test/java",
-    "last_opened_file_path": "/home/konstantin/Documents/IdeaProjects/java project",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Docker.Dockerfile build.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Dockerfile: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.javaProject [help].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.javaProject [test].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TestNG.ApiControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;DEV-8&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;/home/konstantin/IdeaProjects/java project/src/test/java&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/konstantin/Documents/IdeaProjects/untitled21&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/db/changelogs" />
@@ -111,20 +129,14 @@
       <recent name="com.example.javaapp" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.example.javaapp.controllers.ui" />
+      <recent name="com.example.javaapp.exceptions" />
       <recent name="com.example.javaapp.models.dto" />
       <recent name="com.example.javaapp.controllers.api" />
-      <recent name="com.example.javaapp.exceptions" />
-      <recent name="com.example.javaapp.tests" />
+      <recent name="com.example.javaapp.models.services" />
+      <recent name="com.example.javaapp.models.entities" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile">
-        <settings />
-      </deployment>
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="java project" />
       <method v="2">
@@ -150,14 +162,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-249ae16d76d6-a618e4d4" />
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
-      </set>
-    </attachedChunks>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
