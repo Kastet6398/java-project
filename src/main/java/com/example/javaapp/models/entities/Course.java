@@ -1,15 +1,11 @@
 package com.example.javaapp.models.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import java.util.List;
 
-@Entity
 public record Course(
         String title,
         String description,
         long author,
-        @Id
-        @GeneratedValue
+        List<User> invitedUsers,
         long id) {
 }

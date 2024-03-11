@@ -44,7 +44,9 @@ public class AuthController {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             String token = JwtHelper.generateToken(user.email());
-            response.addCookie(new Cookie("token", token));
+            Cookie cookie = new Cookie("token", token);
+            cookie.setPath("/");
+            response.addCookie(cookie);
             return ResponseEntity.ok(new LoginResponse(user.email(), token));
         }
         throw new DuplicateException("User with this email already exists.");
@@ -61,7 +63,9 @@ public class AuthController {
 
         String token = JwtHelper.generateToken(request.email());
 
-        response.addCookie(new Cookie("token", token));
+        Cookie cookie = new Cookie("token", token);
+        cookie.setPath("/");
+        response.addCookie(cookie);
         return ResponseEntity.ok(new LoginResponse(request.email(), token));
     }
 
@@ -77,7 +81,6 @@ public class AuthController {
         }
         Optional<User> userOptional = userService.findByEncryptedEmail(token);
         if (userOptional.isPresent()) {
-            System.out.println(222);
             User user = userOptional.get();
             return ResponseEntity.ok(new UserResponse(user.name(), user.email(), user.phone()));
         } else {
@@ -93,6 +96,7 @@ public class AuthController {
     public Object logout(HttpServletResponse response) {
         Cookie cookie = new Cookie("token", "");
         cookie.setMaxAge(-1);
+        cookie.setPath("/");
         response.addCookie(cookie);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

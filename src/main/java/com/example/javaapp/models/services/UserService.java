@@ -38,4 +38,8 @@ public class UserService {
     public Optional<User> findByEncryptedEmail(String token) {
         return repository.findByEmail(JwtHelper.extractUsername(token));
     }
+
+    public Optional<User> findById(long invitedUserId) {
+        return repository.findById(invitedUserId);
+    }
 }

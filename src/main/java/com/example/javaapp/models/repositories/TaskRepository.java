@@ -15,14 +15,18 @@ import java.util.Optional;
 public class TaskRepository {
     private static final String DELETE = "DELETE FROM main.task WHERE id = :id";
     private static final String INSERT = "INSERT INTO main.task (title, description, author, deadline, course_id) VALUES (:title, :description, :author, :deadline, :course_id)";
-    private static final String FINDTASK = "SELECT * FROM main.task WHERE title = :title";
-    private static final String FINDTASK_BY_ID = "SELECT * FROM main.task WHERE id = :id";
-    private static final String LIST_TASKS_FOR_USER = """
-            SELECT tasks.*
-            FROM tasks
-            JOIN course_user ON tasks.course_id = course_user.course_id
-            WHERE course_user.user_id = :id;
-            """;
+    private static final String FINDTASK = "SELECT * FROM main.task WHERE title = :title;";
+    private static final String FINDTASK_BY_ID = "SELECT * FROM main.task WHERE id = :id;";
+    private static final String LIST_TASKS_FOR_USER =
+            """
+                    SELECT task.title AS task_title, task.description AS task_description, task.createdAt AS task_createdAt, task.deadline AS task_deadline
+                    FROM main.course_invited_user
+                    JOIN main.course ON main.course_invited_user.course_id = main.course.id
+                    JOIN main.task ON main.course.id = main.task.course_id
+                    JOIN authentication.user ON main.course_invited_user.user_id = authentication.user.id
+                    WHERE authentication.user.id = :id;
+                    """;
+
     private final JdbcClient jdbcClient;
 
     public TaskRepository(JdbcClient jdbcClient) {

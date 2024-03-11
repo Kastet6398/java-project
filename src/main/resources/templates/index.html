@@ -9,47 +9,49 @@
 <div layout:fragment="content">
     <div class="row g-4 mt-3">
         <div class="col-lg-4">
-            <div class="gradient-border-card">
-                <div class="icon mb-3">
-                    <svg aria-labelledby="routes-icon-title" fill="none" height="30" role="img" viewBox="0 0 30 30" width="30" xmlns="http://www.w3.org/2000/svg">
-                        <title id="routes-icon-title">An icon of a globe</title>
-                        <defs>
-                            <linearGradient gradientUnits="userSpaceOnUse" id="icon-gradient-fill" x1="4" x2="40" y1="4" y2="24">
-                                <stop stop-color="white" stop-opacity="0.2"></stop>
-                                <stop offset="0" stop-color="white" stop-opacity="0.4"></stop>
-                                <stop offset="0.5" stop-color="white"></stop>
-                                <stop offset="0.75" stop-color="white" stop-opacity="0.4"></stop>
-                                <stop offset="1" stop-color="white" stop-opacity="0"></stop>
-                            </linearGradient>
-                        </defs>
-                        <path d="M15 26.25C17.4937 26.2499 19.9168 25.4215 21.8888 23.895C23.8607 22.3685 25.2699 20.2304 25.895 17.8163M15 26.25C12.5063 26.2499 10.0832 25.4215 8.11121 23.895C6.13925 22.3685 4.73009 20.2304 4.105 17.8163M15 26.25C18.1062 26.25 20.625 21.2125 20.625 15C20.625 8.7875 18.1062 3.75 15 3.75M15 26.25C11.8937 26.25 9.375 21.2125 9.375 15C9.375 8.7875 11.8937 3.75 15 3.75M15 3.75C16.9953 3.74917 18.9549 4.2792 20.6777 5.28571C22.4006 6.29221 23.8246 7.73896 24.8037 9.4775M15 3.75C13.0047 3.74917 11.0451 4.2792 9.32226 5.28571C7.59942 6.29221 6.17538 7.73896 5.19625 9.4775M24.8037 9.4775C22.0821 11.8349 18.6007 13.1302 15 13.125C11.2525 13.125 7.825 11.75 5.19625 9.4775M24.8037 9.4775C25.7548 11.1625 26.2531 13.0651 26.25 15C26.25 15.9725 26.1262 16.9163 25.895 17.8163M25.895 17.8163C22.5615 19.6642 18.8115 20.631 15 20.625C11.0475 20.625 7.33375 19.6063 4.105 17.8163M4.105 17.8163C3.86843 16.8962 3.74915 15.95 3.75 15C3.75 12.9938 4.275 11.1088 5.19625 9.4775" stroke="url(#icon-gradient-fill)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
-                    </svg>
-                </div>
-                <h2 class="gradient-text-animation">Statistics</h2>
-                <p class="mt-3">Find Out Your Statistics For The Week</p>
-                <div class="shimmer" style="--delay: -6s"></div>
-                <i aria-hidden="true"></i>
-                <div class="glowing-wrapper glowing-wrapper-active mt-3">
-                    <div class="glowing-wrapper-animations">
-                        <div class="glowing-wrapper-glow"></div>
-                        <div class="glowing-wrapper-mask-wrapper">
-                            <div class="glowing-wrapper-mask"></div>
+            <a href="/statistics/" style="display:inline; text-decoration: none;">
+                <div class="gradient-border-card">
+                    <div class="icon mb-3">
+                        <svg aria-labelledby="routes-icon-title" fill="none" height="30" role="img" viewBox="0 0 30 30" width="30" xmlns="http://www.w3.org/2000/svg">
+                            <title id="routes-icon-title">An icon of a globe</title>
+                            <defs>
+                                <linearGradient gradientUnits="userSpaceOnUse" id="icon-gradient-fill" x1="4" x2="40" y1="4" y2="24">
+                                    <stop stop-color="white" stop-opacity="0.2"></stop>
+                                    <stop offset="0" stop-color="white" stop-opacity="0.4"></stop>
+                                    <stop offset="0.5" stop-color="white"></stop>
+                                    <stop offset="0.75" stop-color="white" stop-opacity="0.4"></stop>
+                                    <stop offset="1" stop-color="white" stop-opacity="0"></stop>
+                                </linearGradient>
+                            </defs>
+                            <path d="M15 26.25C17.4937 26.2499 19.9168 25.4215 21.8888 23.895C23.8607 22.3685 25.2699 20.2304 25.895 17.8163M15 26.25C12.5063 26.2499 10.0832 25.4215 8.11121 23.895C6.13925 22.3685 4.73009 20.2304 4.105 17.8163M15 26.25C18.1062 26.25 20.625 21.2125 20.625 15C20.625 8.7875 18.1062 3.75 15 3.75M15 26.25C11.8937 26.25 9.375 21.2125 9.375 15C9.375 8.7875 11.8937 3.75 15 3.75M15 3.75C16.9953 3.74917 18.9549 4.2792 20.6777 5.28571C22.4006 6.29221 23.8246 7.73896 24.8037 9.4775M15 3.75C13.0047 3.74917 11.0451 4.2792 9.32226 5.28571C7.59942 6.29221 6.17538 7.73896 5.19625 9.4775M24.8037 9.4775C22.0821 11.8349 18.6007 13.1302 15 13.125C11.2525 13.125 7.825 11.75 5.19625 9.4775M24.8037 9.4775C25.7548 11.1625 26.2531 13.0651 26.25 15C26.25 15.9725 26.1262 16.9163 25.895 17.8163M25.895 17.8163C22.5615 19.6642 18.8115 20.631 15 20.625C11.0475 20.625 7.33375 19.6063 4.105 17.8163M4.105 17.8163C3.86843 16.8962 3.74915 15.95 3.75 15C3.75 12.9938 4.275 11.1088 5.19625 9.4775" stroke="url(#icon-gradient-fill)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                        </svg>
+                    </div>
+                    <h2 class="gradient-text-animation">Statistics</h2>
+                    <p class="mt-3">Find Out Your Statistics For The Week</p>
+                    <div class="shimmer" style="--delay: -6s"></div>
+                    <i aria-hidden="true"></i>
+                    <div class="glowing-wrapper glowing-wrapper-active mt-3">
+                        <div class="glowing-wrapper-animations">
+                            <div class="glowing-wrapper-glow"></div>
+                            <div class="glowing-wrapper-mask-wrapper">
+                                <div class="glowing-wrapper-mask"></div>
+                            </div>
                         </div>
+                        <div class="glowing-wrapper-borders-masker">
+                            <div class="glowing-wrapper-borders"></div>
+                        </div>
+                        <a id="learn-more-button" class="glowing-wrapper-button w-inline-block">
+                            <div class="text-white">Learn More About My Statistics</div>
+                        </a>
                     </div>
-                    <div class="glowing-wrapper-borders-masker">
-                        <div class="glowing-wrapper-borders"></div>
-                    </div>
-                    <a href="/Statistics" id="learn-more-button" class="glowing-wrapper-button w-inline-block">
-                        <div class="text-white">Learn More About My Statistics</div>
-                    </a>
                 </div>
-            </div>
+            </a>
         </div>
 
 
 
         <div class="col-lg-4">
-            <a href="/Statistics" style="display:inline; text-decoration: none;">
+            <a href="/notes/" style="display:inline; text-decoration: none;">
                 <div class="gradient-border-card">
                     <svg aria-labelledby="middleware-icon-title" fill="none" height="28" role="img" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
                         <title id="middleware-icon-title">An icon for Edge Middleware</title>
@@ -69,7 +71,7 @@
                 </div>
 
                 <div class="favorite-item mt-3">
-            <span aria-hidden="true" style="height: 16px;">
+            <span aria-hidden="true" style="height: 16px;" class="favorite-container">
                 <div class="favorite-container">
                     <svg data-testid="geist-icon" height="16" stroke-linejoin="round" viewBox="0 0 16 16" width="16" style="color: gray;">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00001 0.433594L8.65845 1.64093L10.5908 5.18412L14.5577 5.92698L15.9094 6.18011L14.9646 7.17942L12.192 10.1121L12.7113 14.1144L12.8883 15.4782L11.6459 14.8884L8.00001 13.1577L4.35408 14.8884L3.11173 15.4782L3.28869 14.1144L3.80802 10.1121L1.03538 7.17942L0.0906067 6.18011L1.44233 5.92698L5.40922 5.18412L7.34156 1.64093L8.00001 0.433594ZM8.00001 3.56646L6.55565 6.21487L6.38519 6.52743L6.03525 6.59296L3.07014 7.14822L5.14259 9.34029L5.38718 9.59899L5.34137 9.95205L4.95318 12.9436L7.67838 11.65L8.00001 11.4973L8.32163 11.65L11.0468 12.9436L10.6586 9.95205L10.6128 9.59899L10.8574 9.34029L12.9299 7.14822L9.96476 6.59296L9.61482 6.52743L9.44436 6.21487L8.00001 3.56646Z" fill="currentColor"></path>
@@ -122,19 +124,19 @@
                 </div>
                 <h2>Chat</h2>
                 <p class="mt-3">Find New Friends</p>
-                <button type="submit" class="mt-3" onclick="window.location.href = '/addContact';">
-                        <span>
-                            <span class="highlight-bg"></span>
-                            <span class="button-text">
-                                <svg class="me-2" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
-                                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                                    <circle cx="8.5" cy="7" r="4"></circle>
-                                    <path d="M20 8v6"></path>
-                                    <path d="M23 11h-6"></path>
-                                </svg>
-                                Add New Friend
-                            </span>
+                <button type="submit" class="mt-3" onclick="window.location.href = '/contacts/create';">
+                    <span>
+                        <span class="highlight-bg"></span>
+                        <span class="button-text">
+                            <svg class="me-2" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                                <circle cx="8.5" cy="7" r="4"></circle>
+                                <path d="M20 8v6"></path>
+                                <path d="M23 11h-6"></path>
+                            </svg>
+                            Add New Friend
                         </span>
+                    </span>
                 </button>
                 <div class="shimmer" style="--delay: -12.5s"></div>
             </div>
@@ -255,6 +257,63 @@
                     <p class="text-gray-400 mt-3">
                        Requests From People
                     </p>
+                </div>
+            </div>
+        </div>
+        <div class="relative h-full bg-gray-800 rounded-xl p-px before:absolute before:w-80 before:h-80 before:-left-40 before:-top-40 before:bg-gray-400 before:rounded-full before:opacity-0 before:pointer-events-none before:transition-opacity before:duration-500 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:group-hover:opacity-100 before:z-10 before:blur-[100px] after:absolute after:w-96 after:h-96 after:-left-48 after:-top-48 after:bg-indigo-500 after:rounded-full after:opacity-0 after:pointer-events-none after:transition-opacity after:duration-500 after:translate-x-[var(--mouse-x)] after:translate-y-[var(--mouse-y)] after:hover:opacity-10 after:z-30 after:blur-[100px] overflow-hidden">
+            <div class="relative h-full bg-gray-900 p-6 pb-8 rounded-[inherit] z-20 overflow-hidden">
+                <!-- Radial gradient -->
+                <div class="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2 pointer-events-none -z-10 w-1/2 aspect-square" aria-hidden="true">
+                    <div class="absolute inset-0 translate-z-0 bg-gray-800 rounded-full blur-[80px]"></div>
+                </div>
+                <div class="flex flex-col h-full">
+                    <div class="icon mb-3">
+                        <svg aria-labelledby="routes-icon-title" fill="none" height="30" role="img" viewBox="0 0 30 30" width="30" xmlns="http://www.w3.org/2000/svg">
+                            <title id="routes-icon-title">
+                                An icon of a globe
+                            </title>
+                            <defs>
+                                <linearGradient gradientUnits="userSpaceOnUse" id="icon-gradient-fill" x1="4" x2="40" y1="4" y2="24">
+                                    <stop stop-color="white" stop-opacity="0.2"></stop>
+                                    <stop offset="0" stop-color="white" stop-opacity="0.4"></stop>
+                                    <stop offset="0.5" stop-color="white"></stop>
+                                    <stop offset="0.75" stop-color="white" stop-opacity="0.4"></stop>
+                                    <stop offset="1" stop-color="white" stop-opacity="0"></stop>
+                                </linearGradient>
+                            </defs>
+                            <path d="M15 26.25C17.4937 26.2499 19.9168 25.4215 21.8888 23.895C23.8607 22.3685 25.2699 20.2304 25.895 17.8163M15 26.25C12.5063 26.2499 10.0832 25.4215 8.11121 23.895C6.13925 22.3685 4.73009 20.2304 4.105 17.8163M15 26.25C18.1062 26.25 20.625 21.2125 20.625 15C20.625 8.7875 18.1062 3.75 15 3.75M15 26.25C11.8937 26.25 9.375 21.2125 9.375 15C9.375 8.7875 11.8937 3.75 15 3.75M15 3.75C16.9953 3.74917 18.9549 4.2792 20.6777 5.28571C22.4006 6.29221 23.8246 7.73896 24.8037 9.4775M15 3.75C13.0047 3.74917 11.0451 4.2792 9.32226 5.28571C7.59942 6.29221 6.17538 7.73896 5.19625 9.4775M24.8037 9.4775C22.0821 11.8349 18.6007 13.1302 15 13.125C11.2525 13.125 7.825 11.75 5.19625 9.4775M24.8037 9.4775C25.7548 11.1625 26.2531 13.0651 26.25 15C26.25 15.9725 26.1262 16.9163 25.895 17.8163M25.895 17.8163C22.5615 19.6642 18.8115 20.631 15 20.625C11.0475 20.625 7.33375 19.6063 4.105 17.8163M4.105 17.8163C3.86843 16.8962 3.74915 15.95 3.75 15C3.75 12.9938 4.275 11.1088 5.19625 9.4775" stroke="url(#icon-gradient-fill)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                        </svg>
+                    </div>
+                    <p id="weather" class="text-gray-400 mt-3">Loading the weather...</p>
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                          navigator.geolocation.getCurrentPosition(position => {
+                            const userLatitude = position.coords.latitude;
+                            const userLongitude = position.coords.longitude;
+
+                            const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${userLatitude}&longitude=${userLongitude}&current=temperature_2m,wind_speed_10m`;
+
+                            fetch(apiUrl)
+                              .then(response => {
+                                if (response.ok) {
+                                  return response.json();
+                                } else {
+                                  console.error(`Error: Unable to fetch data. Status code ${response.status}`);
+                                }
+                              })
+                              .then(data => {
+                                const weatherDataElement = document.getElementById("weather");
+                                weatherDataElement.textContent = `Temperature: ${data.current.temperature_2m}°C, Wind Speed: ${data.current.wind_speed_10m} m/s`;
+                              })
+                              .catch(error => {
+                                console.error('Network error:', error);
+                              });
+                          }, error => {
+                            console.error('Error getting user location:', error.message);
+                          });
+                        });
+                    </script>
                 </div>
             </div>
         </div>

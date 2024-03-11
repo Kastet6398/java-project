@@ -2,11 +2,14 @@ package com.example.javaapp.controllers.ui;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HomeUiController {
+@RequestMapping("/notes")
+public class NotesUiController {
     @GetMapping("/")
-    public String index() {
-        return "index.html";
+    public String notes() {
+        return "add-friends.html";
     }
+
 }

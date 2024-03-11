@@ -16,14 +16,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class JwtHelper {
 
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final int MINUTES = 1440;
 
     public static String generateToken(String email) {
         var now = Instant.now();
         return Jwts.builder()
                 .subject(email)
                 .issuedAt(Date.from(now))
-                .expiration(Date.from(now.plus(MINUTES, ChronoUnit.MINUTES)))
+                .expiration(Date.from(now.plus(30, ChronoUnit.DAYS)))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }

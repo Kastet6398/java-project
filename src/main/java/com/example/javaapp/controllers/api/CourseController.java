@@ -51,7 +51,7 @@ public class CourseController {
             Optional<Course> courseOptional = courseService.create(requestDto, user.id());
             if (courseOptional.isPresent()) {
                 Course course = courseOptional.get();
-                return ResponseEntity.ok(new CourseResponse(course.title(), course.description(), course.author(), course.id()));
+                return ResponseEntity.ok(new CourseResponse(course.title(), course.invitedUsers(), course.description(), course.author(), course.id()));
             } else {
                 throw new InternalServerException("Course creation failed.");
             }

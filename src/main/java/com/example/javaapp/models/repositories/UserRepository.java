@@ -12,6 +12,7 @@ public class UserRepository {
 
     private static final String INSERT = "INSERT INTO authentication.user (name, email, password, phone) VALUES(:name, :email, :password, :phone)";
     private static final String FIND_BY_EMAIL = "SELECT * FROM authentication.user WHERE email = :email";
+    private static final String FIND_BY_ID = "SELECT * FROM authentication.user WHERE id = :id";
 
     private final JdbcClient jdbcClient;
 
@@ -33,10 +34,20 @@ public class UserRepository {
 
     public Optional<User> findByEmail(String email) {
         try {
-
-
             return jdbcClient.sql(FIND_BY_EMAIL)
                     .param("email", email)
+                    .query(User.class)
+                    .optional();
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public Optional<User> findById(long invitedUserId) {
+        try {
+            return jdbcClient.sql(FIND_BY_ID)
+                    .param("id", invitedUserId)
                     .query(User.class)
                     .optional();
         }catch (Exception e) {

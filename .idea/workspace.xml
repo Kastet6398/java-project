@@ -4,7 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48d4b3a7-341e-490a-aa85-65108c088c39" name="Changes" comment="." />
+    <list default="true" id="48d4b3a7-341e-490a-aa85-65108c088c39" name="Changes" comment=".">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/ui/ContactsUiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/ui/NotesUiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/ui/StatisticsUiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/statistics.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/ui/HomeUiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/ui/HomeUiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/CourseRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/CourseRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/CourseResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/CourseResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/CourseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/TaskRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/utils/JwtHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/utils/JwtHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/ui/HomeUiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/ui/HomeUiController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/entities/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/entities/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/models/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,36 +77,36 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Docker.Dockerfile build.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.Dockerfile: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.javaProject [help].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.javaProject [test].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;TestNG.ApiControllerTest.executor&quot;: &quot;Run&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;DEV-10-rollback&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;/home/konstantin/IdeaProjects/java project/src/test/java&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/konstantin/Documents/IdeaProjects/java project/src/main/resources&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Docker.Dockerfile build.executor": "Run",
+    "Docker.Dockerfile: Compose Deployment.executor": "Run",
+    "Maven.javaProject [help].executor": "Run",
+    "Maven.javaProject [test].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TestNG.ApiControllerTest.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "DEV-10-rollback",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "/home/konstantin/IdeaProjects/java project/src/test/java",
+    "last_opened_file_path": "/home/konstantin/Documents/IdeaProjects/java project/src/main/resources/templates",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/db/changelogs" />
-      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
       <recent name="$PROJECT_DIR$/src/main/resources/static/css" />
       <recent name="$PROJECT_DIR$/src/main/resources/static/js" />
     </key>
@@ -98,11 +126,11 @@
       <recent name="com.example.javaapp" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.javaapp.controllers.ui" />
       <recent name="com.example.javaapp.exceptions" />
       <recent name="com.example.javaapp.models.dto" />
       <recent name="com.example.javaapp.controllers.api" />
       <recent name="com.example.javaapp.models.services" />
-      <recent name="com.example.javaapp.models.entities" />
     </key>
   </component>
   <component name="RunManager">
