@@ -1,0 +1,1703 @@
+Index: src/main/java/com/example/javaapp/controllers/api/RestExceptionHandler.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/controllers/api/RestExceptionHandler.java b/src/main/java/com/example/javaapp/controllers/api/RestExceptionHandler.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/controllers/api/RestExceptionHandler.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,72 +0,0 @@
+-package com.example.javaapp.controllers.api;
+-
+-import static org.springframework.http.HttpStatus.BAD_REQUEST;
+-import static org.springframework.http.HttpStatus.CONFLICT;
+-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+-import static org.springframework.http.HttpStatus.NOT_FOUND;
+-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+-
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-import com.example.javaapp.exceptions.DuplicateException;
+-import com.example.javaapp.exceptions.InternalServerException;
+-import com.example.javaapp.exceptions.NotFoundException;
+-import com.example.javaapp.models.dto.ApiErrorResponse;
+-import org.springframework.http.ResponseEntity;
+-import org.springframework.security.authentication.BadCredentialsException;
+-import org.springframework.security.authentication.InternalAuthenticationServiceException;
+-import org.springframework.web.bind.MethodArgumentNotValidException;
+-import org.springframework.web.bind.annotation.ControllerAdvice;
+-import org.springframework.web.bind.annotation.ExceptionHandler;
+-
+-@ControllerAdvice
+-public class RestExceptionHandler {
+-
+-    @ExceptionHandler(NotFoundException.class)
+-    public ResponseEntity<ApiErrorResponse> handleNotFoundException(NotFoundException e) {
+-        return ResponseEntity.status(NOT_FOUND).body(new ApiErrorResponse(NOT_FOUND.value(), e.getMessage()));
+-    }
+-
+-    @ExceptionHandler(MethodArgumentNotValidException.class)
+-    public ResponseEntity<ApiErrorResponse> handleRequestNotValidException(MethodArgumentNotValidException e) {
+-
+-        List<String> errors = new ArrayList<>();
+-        e.getBindingResult()
+-                .getFieldErrors().forEach(error -> errors.add(error.getField() + ": " + error.getDefaultMessage()));
+-        e.getBindingResult()
+-                .getGlobalErrors() //Global errors are not associated with a specific field but are related to the entire object being validated.
+-                .forEach(error -> errors.add(error.getObjectName() + ": " + error.getDefaultMessage()));
+-
+-        String message = "Validation of request failed: %s".formatted(String.join(", ", errors));
+-        return ResponseEntity.status(BAD_REQUEST).body(new ApiErrorResponse(BAD_REQUEST.value(), message));
+-    }
+-
+-    @ExceptionHandler(BadCredentialsException.class)
+-    public ResponseEntity<ApiErrorResponse> handleBadCredentialsException() {
+-        return ResponseEntity.status(UNAUTHORIZED)
+-                .body(new ApiErrorResponse(UNAUTHORIZED.value(), "Invalid username or password"));
+-    }
+-
+-    @ExceptionHandler(InternalServerException.class)
+-    public ResponseEntity<ApiErrorResponse> handleInternalServerException() {
+-        return ResponseEntity.status(INTERNAL_SERVER_ERROR)
+-                .body(new ApiErrorResponse(INTERNAL_SERVER_ERROR.value(), "Internal server error"));
+-    }
+-
+-    @ExceptionHandler(DuplicateException.class)
+-    public ResponseEntity<ApiErrorResponse> handleDuplicateException(DuplicateException e) {
+-        return ResponseEntity.status(CONFLICT).body(new ApiErrorResponse(CONFLICT.value(), e.getMessage()));
+-    }
+-
+-    @ExceptionHandler(InternalAuthenticationServiceException.class)
+-    public ResponseEntity<ApiErrorResponse> handleInternalAuthenticationServiceException(InternalAuthenticationServiceException e) {
+-        return ResponseEntity.status(UNAUTHORIZED).body(new ApiErrorResponse(UNAUTHORIZED.value(), e.getMessage()));
+-    }
+-
+-    @ExceptionHandler(Exception.class)
+-    public ResponseEntity<ApiErrorResponse> handleUnknownException(Exception e) {
+-        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiErrorResponse(INTERNAL_SERVER_ERROR.value(), e.getMessage()));
+-    }
+-
+-}
+Index: src/main/java/com/example/javaapp/controllers/ui/NotesUiController.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/controllers/ui/NotesUiController.java b/src/main/java/com/example/javaapp/controllers/ui/NotesUiController.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/controllers/ui/NotesUiController.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,15 +0,0 @@
+-package com.example.javaapp.controllers.ui;
+-
+-import org.springframework.stereotype.Controller;
+-import org.springframework.web.bind.annotation.GetMapping;
+-import org.springframework.web.bind.annotation.RequestMapping;
+-
+-@Controller
+-@RequestMapping("/notes")
+-public class NotesUiController {
+-    @GetMapping("/")
+-    public String notes() {
+-        return "add-friends.html";
+-    }
+-
+-}
+Index: src/main/java/com/example/javaapp/models/dto/ApiErrorResponse.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/dto/ApiErrorResponse.java b/src/main/java/com/example/javaapp/models/dto/ApiErrorResponse.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/dto/ApiErrorResponse.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,11 +0,0 @@
+-package com.example.javaapp.models.dto;
+-
+-import io.swagger.v3.oas.annotations.media.Schema;
+-
+-public record ApiErrorResponse(
+-        @Schema(description = "Error code")
+-        int errorCode,
+-        @Schema(description = "Error description")
+-        String description) {
+-
+-}
+Index: src/main/java/com/example/javaapp/models/services/TaskService.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/services/TaskService.java b/src/main/java/com/example/javaapp/models/services/TaskService.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/services/TaskService.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,60 +0,0 @@
+-package com.example.javaapp.models.services;
+-
+-import com.example.javaapp.exceptions.AccessDeniedException;
+-import com.example.javaapp.exceptions.DuplicateException;
+-import com.example.javaapp.exceptions.NotFoundException;
+-import com.example.javaapp.models.dto.TaskRequest;
+-import com.example.javaapp.models.entities.Course;
+-import com.example.javaapp.models.entities.Task;
+-import com.example.javaapp.models.entities.User;
+-import com.example.javaapp.models.repositories.TaskRepository;
+-import org.springframework.stereotype.Service;
+-import org.springframework.transaction.annotation.Transactional;
+-
+-import java.util.List;
+-import java.util.Optional;
+-
+-@Service
+-@Transactional(readOnly = true)
+-public class TaskService {
+-    private final TaskRepository repository;
+-    private final CourseService courseService;
+-
+-    public TaskService(TaskRepository repository, CourseService courseService) {
+-        this.repository = repository;
+-        this.courseService = courseService;
+-    }
+-
+-    @Transactional
+-    public Optional<Task> create(TaskRequest request, long userId) {
+-        Optional<Course> courseOptional = courseService.findById(request.courseId());
+-        if (courseOptional.isPresent()) {
+-            if (courseOptional.get().author() == userId) {
+-                String title = request.title();
+-                Optional<Task> existingTask = repository.findTask(title);
+-                if (existingTask.isPresent()) {
+-                    throw new DuplicateException(STR."Task with the title '\{title}' already exists.");
+-                }
+-
+-                Task task = new Task(request.title(), request.description(), userId, request.deadline(), request.courseId(), -1);
+-                return repository.createTask(task);
+-            } else {
+-                throw new AccessDeniedException("The course does not belong to you.");
+-            }
+-        } else {
+-            throw new NotFoundException("Course not found.");
+-        }
+-    }
+-
+-    public boolean delete(long id) {
+-        return repository.deleteTask(id);
+-    }
+-
+-    public Optional<Task> findById(long id) {
+-        return repository.findTaskById(id);
+-    }
+-
+-    public List<Task> listTasksForUser(User user) {
+-        return repository.listTasksForUser(user.id());
+-    }
+-}
+Index: src/main/java/com/example/javaapp/config/SwaggerConfiguration.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/config/SwaggerConfiguration.java b/src/main/java/com/example/javaapp/config/SwaggerConfiguration.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/config/SwaggerConfiguration.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,34 +0,0 @@
+-package com.example.javaapp.config;
+-
+-
+-import org.springframework.context.annotation.Bean;
+-import org.springframework.context.annotation.Configuration;
+-
+-import io.swagger.v3.oas.models.Components;
+-import io.swagger.v3.oas.models.OpenAPI;
+-import io.swagger.v3.oas.models.info.Contact;
+-import io.swagger.v3.oas.models.info.Info;
+-import io.swagger.v3.oas.models.security.SecurityRequirement;
+-import io.swagger.v3.oas.models.security.SecurityScheme;
+-
+-@Configuration
+-public class SwaggerConfiguration {
+-
+-    @Bean
+-    public OpenAPI openAPI() {
+-        return new OpenAPI()
+-                .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
+-                .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
+-                .info(apiInfo());
+-    }
+-
+-    private SecurityScheme createAPIKeyScheme() {
+-        return new SecurityScheme().type(SecurityScheme.Type.HTTP)
+-                .bearerFormat("JWT")
+-                .scheme("bearer");
+-    }
+-
+-    private Info apiInfo() {
+-        return new Info();
+-    }
+-}
+Index: src/main/java/com/example/javaapp/models/entities/Course.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/entities/Course.java b/src/main/java/com/example/javaapp/models/entities/Course.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/entities/Course.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,11 +0,0 @@
+-package com.example.javaapp.models.entities;
+-
+-import java.util.List;
+-
+-public record Course(
+-        String title,
+-        String description,
+-        long author,
+-        List<User> invitedUsers,
+-        long id) {
+-}
+\ No newline at end of file
+Index: src/main/java/com/example/javaapp/exceptions/DuplicateException.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/exceptions/DuplicateException.java b/src/main/java/com/example/javaapp/exceptions/DuplicateException.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/exceptions/DuplicateException.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,8 +0,0 @@
+-package com.example.javaapp.exceptions;
+-
+-public class DuplicateException extends RuntimeException {
+-
+-    public DuplicateException(String message) {
+-        super(message);
+-    }
+-}
+Index: src/main/java/com/example/javaapp/controllers/api/TaskController.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/controllers/api/TaskController.java b/src/main/java/com/example/javaapp/controllers/api/TaskController.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/controllers/api/TaskController.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,110 +0,0 @@
+-package com.example.javaapp.controllers.api;
+-
+-import com.example.javaapp.exceptions.AccessDeniedException;
+-import com.example.javaapp.exceptions.NotFoundException;
+-import com.example.javaapp.models.dto.ApiErrorResponse;
+-import com.example.javaapp.models.dto.LoginResponse;
+-import com.example.javaapp.models.dto.TaskRequest;
+-import com.example.javaapp.models.dto.TaskResponse;
+-import com.example.javaapp.models.entities.Task;
+-import com.example.javaapp.models.entities.User;
+-import com.example.javaapp.models.services.TaskService;
+-import com.example.javaapp.models.services.UserService;
+-import io.swagger.v3.oas.annotations.Operation;
+-import io.swagger.v3.oas.annotations.media.Content;
+-import io.swagger.v3.oas.annotations.media.Schema;
+-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+-import jakarta.servlet.http.HttpServletResponse;
+-import jakarta.validation.Valid;
+-import org.springframework.http.MediaType;
+-import org.springframework.http.ResponseEntity;
+-import org.springframework.web.bind.annotation.*;
+-
+-import java.util.Optional;
+-
+-@RestController
+-@RequestMapping(path = "/api/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
+-public class TaskController {
+-    private final TaskService taskService;
+-    private final UserService userService;
+-
+-    public TaskController(TaskService taskService, UserService userService) {
+-        this.taskService = taskService;
+-        this.userService = userService;
+-    }
+-
+-    @Operation(summary = "Create a task")
+-    @ApiResponse(responseCode = "201")
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "409", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @PostMapping("/create")
+-    public ResponseEntity<TaskResponse> create(@CookieValue(value = "token", defaultValue = "", required = false) String token, @Valid @RequestBody TaskRequest requestDto, HttpServletResponse response) {
+-        if (token.isBlank()) {
+-            throw new AccessDeniedException("You must be logged in to create a task.");
+-        }
+-        Optional<User> userOptional = userService.findByEncryptedEmail(token);
+-        if (userOptional.isPresent()) {
+-            User user = userOptional.get();
+-            Optional<Task> taskOptional = taskService.create(requestDto, user.id());
+-            if (taskOptional.isPresent()) {
+-                Task task = taskOptional.get();
+-                return ResponseEntity.ok(new TaskResponse(task.title(), task.description(), task.author(), task.deadline(), task.courseId(), task.id()));
+-            } else {
+-                return ResponseEntity.status(422).build();
+-            }
+-        } else {
+-            throw new AccessDeniedException("You must be logged in to create a task.");
+-        }
+-    }
+-
+-    @Operation(summary = "Delete a task")
+-    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
+-    @ApiResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @GetMapping(value = "/delete")
+-    public ResponseEntity<Object> delete(@CookieValue(value = "token", defaultValue = "", required = false) String token, @RequestParam long id, HttpServletResponse response) {
+-        if (token.isBlank()) {
+-            throw new AccessDeniedException("You must be logged in to delete your task.");
+-        }
+-        Optional<User> userOptional = userService.findByEncryptedEmail(token);
+-        if (userOptional.isPresent()) {
+-            User user = userOptional.get();
+-            Optional<Task> taskOptional = taskService.findById(id);
+-            if (taskOptional.isPresent()) {
+-                if (taskOptional.get().author() == user.id()) {
+-                    if (taskService.delete(id)) {
+-                        return ResponseEntity.ok().build();
+-                    } else {
+-                        throw new NotFoundException("Task not found.");
+-                    }
+-                } else {
+-                    throw new AccessDeniedException("You cannot delete a task that does not belong to you.");
+-                }
+-            } else {
+-                throw new NotFoundException("Task not found.");
+-            }
+-        } else {
+-            throw new AccessDeniedException("You must be logged in to delete your task.");
+-        }
+-    }
+-
+-    @Operation(summary = "List tasks")
+-    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @GetMapping(value = "/list")
+-    public ResponseEntity<Object> list(@CookieValue(value = "token", defaultValue = "", required = false) String token, HttpServletResponse response) {
+-        if (token.isBlank()) {
+-            throw new AccessDeniedException("You must be logged in to view your tasks.");
+-        }
+-        Optional<User> userOptional = userService.findByEncryptedEmail(token);
+-        if (userOptional.isPresent()) {
+-            User user = userOptional.get();
+-            return ResponseEntity.ok(taskService.listTasksForUser(user));
+-        } else {
+-            throw new AccessDeniedException("You must be logged in to view your tasks.");
+-        }
+-    }
+-}
+Index: src/main/java/com/example/javaapp/models/dto/LoginRequest.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/dto/LoginRequest.java b/src/main/java/com/example/javaapp/models/dto/LoginRequest.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/dto/LoginRequest.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,22 +0,0 @@
+-package com.example.javaapp.models.dto;
+-
+-import io.swagger.v3.oas.annotations.media.Schema;
+-import jakarta.validation.constraints.Email;
+-import jakarta.validation.constraints.NotBlank;
+-import jakarta.validation.constraints.Size;
+-
+-public record LoginRequest(
+-        @Schema(description = "email", example = "mina@gmail.com")
+-        @NotBlank(message = "Email cannot be blank")
+-        @Email(message = "Invalid email format")
+-        String email,
+-
+-        @Schema(description = "password", example = "123456")
+-        @NotBlank(message = "Password cannot be blank")
+-        @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
+-        String password) {
+-
+-        public LoginRequest() {
+-                this(null, null);
+-        }
+-}
+Index: src/main/java/com/example/javaapp/models/repositories/CourseRepository.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/repositories/CourseRepository.java b/src/main/java/com/example/javaapp/models/repositories/CourseRepository.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/repositories/CourseRepository.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,147 +0,0 @@
+-package com.example.javaapp.models.repositories;
+-
+-import com.example.javaapp.models.entities.Course;
+-import com.example.javaapp.models.entities.User;
+-import org.springframework.jdbc.core.simple.JdbcClient;
+-import org.springframework.stereotype.Repository;
+-import org.springframework.util.Assert;
+-
+-import java.util.ArrayList;
+-import java.util.List;
+-import java.util.Map;
+-import java.util.Optional;
+-
+-@Repository
+-public class CourseRepository {
+-
+-    private static final String INSERT = "INSERT INTO main.course (title, description, author) VALUES (:title, :description, :author)";
+-    private static final String INSERT_TO_INVITED_USERS = "INSERT INTO main.course_invited_user (course_id, user_id) VALUES (:course_id, :user_id)";
+-    private static final String FINDCOURSE = "SELECT * FROM main.course WHERE title = :title;";
+-    private static final String FINDCOURSE_BY_ID = "SELECT * FROM main.course WHERE id = :id;";
+-    private static final String FIND_INVITED_USERS =
+-            "SELECT u.* FROM authentication.user u " +
+-            "JOIN main.course_invited_user cu ON u.id = cu.user_id " +
+-            "WHERE cu.course_id = :id";
+-    private static final String DELETE = "DELETE FROM main.course WHERE id = :id";
+-    private static final String LIST_COURSES_FOR_USER =
+-            "SELECT main.course.* FROM main.course_invited_user JOIN main.course ON main.course_invited_user.course_id = main.course.id JOIN authentication.user ON main.course_invited_user.user_id = authentication.user.id WHERE authentication.user.id = :id;";
+-    private final JdbcClient jdbcClient;
+-
+-    public CourseRepository(JdbcClient jdbcClient) {
+-        this.jdbcClient = jdbcClient;
+-    }
+-
+-    public Optional<Course> createCourse(Course course) {
+-        long affected = jdbcClient.sql(INSERT)
+-                .param("title", course.title())
+-                .param("description", course.description())
+-                .param("author", course.author())
+-                .update();
+-
+-        Optional<Course> courseDb = findCourse(course.title(), false);
+-        Assert.isTrue(courseDb.isPresent(), "Could not add course.");
+-
+-        for (User invitedUser : course.invitedUsers()) {
+-            long affected2 = jdbcClient.sql(INSERT_TO_INVITED_USERS)
+-                    .param("course_id", courseDb.get().id())
+-                    .param("user_id", invitedUser.id())
+-                    .update();
+-            Assert.isTrue(affected2 == 1, "Could not add some invited users.");
+-        }
+-
+-        Assert.isTrue(affected == 1, "Could not add course.");
+-
+-        return courseDb;
+-    }
+-
+-    public Optional<Course> findCourse(String title, boolean isLoadInvitedUsers) {
+-        JdbcClient.ResultQuerySpec resultQuerySpec = jdbcClient.sql(FINDCOURSE)
+-                .param("title", title)
+-                .query();
+-        if (resultQuerySpec.listOfRows().isEmpty()) {
+-            return Optional.empty();
+-        }
+-        Map<String, Object> result = resultQuerySpec
+-                .singleRow();
+-
+-        List<User> invitedUsers = new ArrayList<>();
+-        Course course = new Course(
+-                (String) result.get("title"),
+-                (String) result.get("description"),
+-                (long) result.get("author"),
+-                invitedUsers,
+-                (long) result.get("id"));
+-        if (isLoadInvitedUsers) {
+-            List<Map<String, Object>> result2 = jdbcClient.sql(FIND_INVITED_USERS)
+-                    .param("id", course.id())
+-                    .query()
+-                    .listOfRows();
+-
+-            for (Map<String, Object> row : result2) {
+-                invitedUsers.add(new User(
+-                        (String) row.get("name"),
+-                        (String) row.get("email"),
+-                        (String) row.get("password"),
+-                        (String) row.get("phone"),
+-                        (long) row.get("id")));
+-            }
+-        }
+-        return Optional.of(course);
+-    }
+-
+-    public Optional<Course> findCourse(String title) {
+-        return findCourse(title, true);
+-    }
+-
+-    public List<Course> listCourses(long userId) {
+-        System.out.println(userId);
+-        List<Map<String, Object>> result = jdbcClient.sql(LIST_COURSES_FOR_USER)
+-                .param("id", userId)
+-                .query()
+-                .listOfRows();
+-
+-        List<Course> courses = new ArrayList<>();
+-        for (Map<String, Object> row : result) {
+-            List<User> invitedUsers = new ArrayList<>();
+-
+-            List<Map<String, Object>> result2 = jdbcClient.sql(FIND_INVITED_USERS)
+-                    .param("id", row.get("id"))
+-                    .query()
+-                    .listOfRows();
+-
+-            for (Map<String, Object> row2 : result2) {
+-                invitedUsers.add(new User(
+-                        (String) row2.get("name"),
+-                        (String) row2.get("email"),
+-                        (String) row2.get("password"),
+-                        (String) row2.get("phone"),
+-                        (long) row2.get("id")));
+-            }
+-            courses.add(new Course(
+-                    (String) row.get("title"),
+-                    (String) row.get("description"),
+-                    (long) row.get("author"),
+-                    invitedUsers,
+-                    (long) row.get("id")));
+-        }
+-        return courses;
+-    }
+-
+-    public boolean deleteTask(long id) {
+-        return jdbcClient.sql(DELETE)
+-                .param("id", id)
+-                .update() == 1;
+-    }
+-
+-    public Optional<Course> findCourseById(long id) {
+-        try {
+-            return jdbcClient.sql(FINDCOURSE_BY_ID)
+-                    .param("id", id)
+-                    .query(Course.class)
+-                    .optional();
+-        } catch (Exception e) {
+-            e.printStackTrace();
+-            throw e;
+-        }
+-    }
+-}
+Index: src/main/java/com/example/javaapp/config/JwtAuthFilter.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/config/JwtAuthFilter.java b/src/main/java/com/example/javaapp/config/JwtAuthFilter.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/config/JwtAuthFilter.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,75 +0,0 @@
+-package com.example.javaapp.config;
+-
+-import com.example.javaapp.exceptions.AccessDeniedException;
+-import com.example.javaapp.models.dto.ApiErrorResponse;
+-import com.example.javaapp.models.services.UserDetailsServiceImpl;
+-import com.example.javaapp.utils.JwtHelper;
+-import com.fasterxml.jackson.databind.ObjectMapper;
+-import jakarta.servlet.FilterChain;
+-import jakarta.servlet.ServletException;
+-import jakarta.servlet.http.HttpServletRequest;
+-import jakarta.servlet.http.HttpServletResponse;
+-import java.io.IOException;
+-
+-import org.jetbrains.annotations.NotNull;
+-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+-import org.springframework.security.core.context.SecurityContextHolder;
+-import org.springframework.security.core.userdetails.UserDetails;
+-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+-import org.springframework.stereotype.Component;
+-import org.springframework.web.filter.OncePerRequestFilter;
+-
+-@Component
+-public class JwtAuthFilter extends OncePerRequestFilter {
+-
+-    private final UserDetailsServiceImpl userDetailsService;
+-    private final ObjectMapper objectMapper;
+-
+-    public JwtAuthFilter(UserDetailsServiceImpl userDetailsService, ObjectMapper objectMapper) {
+-        this.userDetailsService = userDetailsService;
+-        this.objectMapper = objectMapper;
+-    }
+-
+-    @Override
+-    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)
+-            throws ServletException, IOException {
+-        try {
+-            String authHeader = request.getHeader("Authorization");
+-
+-            String token = null;
+-            String username = null;
+-            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+-                token = authHeader.substring(7);
+-                username = JwtHelper.extractUsername(token);
+-            }
+-
+-            if (token == null) {
+-                filterChain.doFilter(request, response);
+-                return;
+-            }
+-
+-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+-                if (JwtHelper.validateToken(token, userDetails)) {
+-                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+-                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+-                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+-                }
+-            }
+-
+-            filterChain.doFilter(request, response);
+-        } catch (AccessDeniedException e) {
+-            ApiErrorResponse errorResponse = new ApiErrorResponse(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+-            response.getWriter().write(toJson(errorResponse));
+-        }
+-    }
+-
+-    private String toJson(ApiErrorResponse response) {
+-        try {
+-            return objectMapper.writeValueAsString(response);
+-        } catch (Exception e) {
+-            return "";
+-        }
+-    }
+-}
+Index: src/main/java/com/example/javaapp/config/SecurityConfig.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/config/SecurityConfig.java b/src/main/java/com/example/javaapp/config/SecurityConfig.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/config/SecurityConfig.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,55 +0,0 @@
+-package com.example.javaapp.config;
+-
+-import com.example.javaapp.models.services.UserDetailsServiceImpl;
+-import org.springframework.context.annotation.Bean;
+-import org.springframework.context.annotation.Configuration;
+-import org.springframework.http.HttpMethod;
+-import org.springframework.security.authentication.AuthenticationManager;
+-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+-import org.springframework.security.config.http.SessionCreationPolicy;
+-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+-import org.springframework.security.crypto.password.PasswordEncoder;
+-import org.springframework.security.web.SecurityFilterChain;
+-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+-
+-@Configuration
+-@EnableWebSecurity
+-public class SecurityConfig {
+-
+-    private final UserDetailsServiceImpl userDetailsService;
+-    private final JwtAuthFilter jwtAuthFilter;
+-
+-    public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthFilter jwtAuthFilter) {
+-        this.userDetailsService = userDetailsService;
+-        this.jwtAuthFilter = jwtAuthFilter;
+-    }
+-
+-    @Bean
+-    public PasswordEncoder passwordEncoder() {
+-        return new BCryptPasswordEncoder();
+-    }
+-
+-    @Bean
+-    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+-        return http
+-                .cors(AbstractHttpConfigurer::disable)
+-                .csrf(AbstractHttpConfigurer::disable)
+-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+-                .authorizeHttpRequests(auth -> auth
+-                        .requestMatchers(HttpMethod.POST, "/restricted").authenticated()
+-                        .anyRequest().permitAll())
+-                .authenticationManager(authenticationManager)
+-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+-                .build();
+-    }
+-
+-    @Bean
+-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+-        return authenticationManagerBuilder.build();
+-    }
+-}
+Index: src/main/java/com/example/javaapp/models/repositories/UserRepository.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/repositories/UserRepository.java b/src/main/java/com/example/javaapp/models/repositories/UserRepository.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/repositories/UserRepository.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,58 +0,0 @@
+-package com.example.javaapp.models.repositories;
+-
+-import com.example.javaapp.models.entities.User;
+-import org.springframework.jdbc.core.simple.JdbcClient;
+-import org.springframework.stereotype.Repository;
+-import org.springframework.util.Assert;
+-
+-import java.util.Optional;
+-
+-@Repository
+-public class UserRepository {
+-
+-    private static final String INSERT = "INSERT INTO authentication.user (name, email, password, phone) VALUES(:name, :email, :password, :phone)";
+-    private static final String FIND_BY_EMAIL = "SELECT * FROM authentication.user WHERE email = :email";
+-    private static final String FIND_BY_ID = "SELECT * FROM authentication.user WHERE id = :id";
+-
+-    private final JdbcClient jdbcClient;
+-
+-    public UserRepository(JdbcClient jdbcClient) {
+-        this.jdbcClient = jdbcClient;
+-    }
+-
+-    public Optional<User> add(User user) {
+-        long affected = jdbcClient.sql(INSERT)
+-                .param("name", user.name())
+-                .param("email", user.email())
+-                .param("password", user.password())
+-                .param("phone", user.phone())
+-                .update();
+-
+-        Assert.isTrue(affected == 1, "Could not add user.");
+-        return findByEmail(user.email());
+-    }
+-
+-    public Optional<User> findByEmail(String email) {
+-        try {
+-            return jdbcClient.sql(FIND_BY_EMAIL)
+-                    .param("email", email)
+-                    .query(User.class)
+-                    .optional();
+-        }catch (Exception e) {
+-            e.printStackTrace();
+-            throw e;
+-        }
+-    }
+-
+-    public Optional<User> findById(long invitedUserId) {
+-        try {
+-            return jdbcClient.sql(FIND_BY_ID)
+-                    .param("id", invitedUserId)
+-                    .query(User.class)
+-                    .optional();
+-        }catch (Exception e) {
+-            e.printStackTrace();
+-            throw e;
+-        }
+-    }
+-}
+Index: src/main/java/com/example/javaapp/models/dto/TaskResponse.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/dto/TaskResponse.java b/src/main/java/com/example/javaapp/models/dto/TaskResponse.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/dto/TaskResponse.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,20 +0,0 @@
+-package com.example.javaapp.models.dto;
+-
+-import io.swagger.v3.oas.annotations.media.Schema;
+-
+-import java.time.LocalDateTime;
+-
+-public record TaskResponse(
+-        @Schema(description = "title")
+-        String title,
+-        @Schema(description = "description")
+-        String description,
+-        @Schema(description = "author")
+-        long author,
+-        @Schema(description = "deadline")
+-        LocalDateTime deadline,
+-        @Schema(description = "course id")
+-        long course_id,
+-        @Schema(description = "task id")
+-        long id) {
+-}
+Index: src/main/java/com/example/javaapp/models/services/UserService.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/services/UserService.java b/src/main/java/com/example/javaapp/models/services/UserService.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/services/UserService.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,47 +0,0 @@
+-package com.example.javaapp.models.services;
+-import java.util.Optional;
+-
+-import com.example.javaapp.exceptions.DuplicateException;
+-import com.example.javaapp.models.dto.SignupRequest;
+-import com.example.javaapp.models.entities.User;
+-import com.example.javaapp.models.repositories.UserRepository;
+-import com.example.javaapp.utils.JwtHelper;
+-import org.springframework.security.crypto.password.PasswordEncoder;
+-import org.springframework.stereotype.Service;
+-import org.springframework.transaction.annotation.Transactional;
+-
+-@Service
+-@Transactional(readOnly = true)
+-public class UserService {
+-    private final UserService userService;
+-
+-    private final UserRepository repository;
+-    private final PasswordEncoder passwordEncoder;
+-
+-    public UserService(UserService userService, UserRepository repository, PasswordEncoder passwordEncoder) {
+-        this.userService = userService;
+-        this.repository = repository;
+-        this.passwordEncoder = passwordEncoder;
+-    }
+-
+-    @Transactional
+-    public Optional<User> signup(SignupRequest request) {
+-        String email = request.email();
+-        Optional<User> existingUser = repository.findByEmail(email);
+-        if (existingUser.isPresent()) {
+-            throw new DuplicateException(STR."User with the email address '\{email}' already exists.");
+-        }
+-
+-        String hashedPassword = passwordEncoder.encode(request.password());
+-        User user = new User(request.name(), email, hashedPassword, request.phone(), -1);
+-        return repository.add(user);
+-    }
+-
+-    public Optional<User> findByEncryptedEmail(String token) {
+-        return repository.findByEmail(JwtHelper.extractUsername(token));
+-    }
+-
+-    public Optional<User> findById(long invitedUserId) {
+-        return repository.findById(invitedUserId);
+-    }
+-}
+Index: src/main/java/com/example/javaapp/models/dto/TaskRequest.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/dto/TaskRequest.java b/src/main/java/com/example/javaapp/models/dto/TaskRequest.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/dto/TaskRequest.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,21 +0,0 @@
+-package com.example.javaapp.models.dto;
+-
+-import jakarta.validation.constraints.NotBlank;
+-import jakarta.validation.constraints.NotNull;
+-import org.springframework.format.annotation.DateTimeFormat;
+-
+-import java.time.LocalDateTime;
+-
+-public record TaskRequest(
+-        @NotBlank(message = "Title cannot be blank")
+-        @NotNull(message = "Title cannot be null")
+-        String title,
+-        @NotBlank(message = "Description cannot be blank")
+-        @NotNull(message = "Description cannot be null")
+-        String description,
+-        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+-        @NotNull(message = "Deadline cannot be null")
+-        LocalDateTime deadline,
+-        @NotNull(message = "Course ID cannot be null")
+-        long courseId) {
+-}
+Index: src/main/java/com/example/javaapp/exceptions/InternalServerException.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/exceptions/InternalServerException.java b/src/main/java/com/example/javaapp/exceptions/InternalServerException.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/exceptions/InternalServerException.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,8 +0,0 @@
+-package com.example.javaapp.exceptions;
+-
+-public class InternalServerException extends RuntimeException {
+-
+-    public InternalServerException(String message) {
+-        super(message);
+-    }
+-}
+Index: src/main/java/com/example/javaapp/exceptions/NotFoundException.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/exceptions/NotFoundException.java b/src/main/java/com/example/javaapp/exceptions/NotFoundException.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/exceptions/NotFoundException.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,8 +0,0 @@
+-package com.example.javaapp.exceptions;
+-
+-public class NotFoundException extends RuntimeException {
+-
+-    public NotFoundException(String message) {
+-        super(message);
+-    }
+-}
+Index: src/main/java/com/example/javaapp/models/dto/SignupRequest.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/dto/SignupRequest.java b/src/main/java/com/example/javaapp/models/dto/SignupRequest.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/dto/SignupRequest.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,25 +0,0 @@
+-package com.example.javaapp.models.dto;
+-
+-import jakarta.validation.constraints.Email;
+-import jakarta.validation.constraints.NotBlank;
+-import jakarta.validation.constraints.Size;
+-
+-public record SignupRequest(
+-        @NotBlank(message = "Name cannot be blank")
+-        String name,
+-
+-        @Email(message = "Invalid email format")
+-        @NotBlank(message = "Email cannot be blank")
+-        String email,
+-
+-        @NotBlank(message = "Password cannot be blank")
+-        @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
+-        String password,
+-
+-        @NotBlank(message = "Phone cannot be blank")
+-        String phone) {
+-
+-        public SignupRequest() {
+-                this(null, null, null, null);
+-        }
+-}
+Index: src/main/java/com/example/javaapp/models/dto/CourseRequest.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/dto/CourseRequest.java b/src/main/java/com/example/javaapp/models/dto/CourseRequest.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/dto/CourseRequest.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,15 +0,0 @@
+-package com.example.javaapp.models.dto;
+-
+-import jakarta.validation.constraints.NotBlank;
+-
+-import java.time.LocalDateTime;
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-public record CourseRequest(
+-        @NotBlank(message = "Title cannot be blank")
+-        String title,
+-        List<Long> invitedUsers,
+-        @NotBlank(message = "Description cannot be blank")
+-        String description) {
+-}
+Index: src/main/java/com/example/javaapp/models/dto/CourseResponse.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/dto/CourseResponse.java b/src/main/java/com/example/javaapp/models/dto/CourseResponse.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/dto/CourseResponse.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,18 +0,0 @@
+-package com.example.javaapp.models.dto;
+-
+-import com.example.javaapp.models.entities.User;
+-import io.swagger.v3.oas.annotations.media.Schema;
+-
+-import java.util.List;
+-
+-public record CourseResponse(
+-        @Schema(description = "title")
+-        String title,
+-        List<User> invitedUsers,
+-        @Schema(description = "description")
+-        String description,
+-        @Schema(description = "author")
+-        long author,
+-        @Schema(description = "task id")
+-        long id) {
+-}
+Index: src/main/java/com/example/javaapp/models/services/UserDetailsServiceImpl.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/services/UserDetailsServiceImpl.java b/src/main/java/com/example/javaapp/models/services/UserDetailsServiceImpl.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/services/UserDetailsServiceImpl.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,31 +0,0 @@
+-package com.example.javaapp.models.services;
+-
+-import com.example.javaapp.exceptions.NotFoundException;
+-import com.example.javaapp.models.entities.User;
+-import com.example.javaapp.models.repositories.UserRepository;
+-
+-import org.springframework.security.core.userdetails.UserDetails;
+-import org.springframework.security.core.userdetails.UserDetailsService;
+-import org.springframework.stereotype.Service;
+-
+-@Service
+-public class UserDetailsServiceImpl implements UserDetailsService {
+-
+-    private final UserRepository repository;
+-
+-    public UserDetailsServiceImpl(UserRepository repository) {
+-        this.repository = repository;
+-    }
+-
+-    @Override
+-    public UserDetails loadUserByUsername(String email) {
+-
+-        User user = repository.findByEmail(email).orElseThrow(() ->
+-                                                                      new NotFoundException(String.format("User does not exist, email: %s", email)));
+-
+-        return org.springframework.security.core.userdetails.User.builder()
+-                .username(user.email())
+-                .password(user.password())
+-                .build();
+-    }
+-}
+Index: src/main/java/com/example/javaapp/models/services/CourseService.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/services/CourseService.java b/src/main/java/com/example/javaapp/models/services/CourseService.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/services/CourseService.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,69 +0,0 @@
+-package com.example.javaapp.models.services;
+-
+-import com.example.javaapp.exceptions.DuplicateException;
+-import com.example.javaapp.exceptions.NotFoundException;
+-import com.example.javaapp.models.dto.CourseRequest;
+-import com.example.javaapp.models.entities.Course;
+-import com.example.javaapp.models.entities.User;
+-import com.example.javaapp.models.repositories.CourseRepository;
+-import org.springframework.stereotype.Service;
+-import org.springframework.transaction.annotation.Transactional;
+-
+-import java.util.ArrayList;
+-import java.util.List;
+-import java.util.Optional;
+-
+-@Service
+-@Transactional(readOnly = true)
+-public class CourseService {
+-    private final CourseRepository repository;
+-    private final UserService userRepository;
+-
+-    public CourseService(CourseRepository repository, UserService userRepository) {
+-        this.repository = repository;
+-        this.userRepository = userRepository;
+-    }
+-
+-    @Transactional
+-    public Optional<Course> create(CourseRequest request, long userId) {
+-        String title = request.title();
+-        Optional<Course> existingCourse = repository.findCourse(title);
+-        if (existingCourse.isPresent()) {
+-            throw new DuplicateException(STR."Course with the title '\{title}' already exists.");
+-        }
+-
+-        List<User> invitedUsers = new ArrayList<>();
+-
+-        Optional<User> currentUserOptional = userRepository.findById(userId);
+-        if (currentUserOptional.isPresent()) {
+-            invitedUsers.add(currentUserOptional.get());
+-        } else {
+-            throw new NotFoundException("Current user not found.");
+-        }
+-        for (long invitedUserId : request.invitedUsers()) {
+-            Optional<User> userOptional = userRepository.findById(invitedUserId);
+-            if (userOptional.isPresent()) {
+-                invitedUsers.add(userOptional.get());
+-            } else {
+-                throw new NotFoundException(STR."Cannot fetch the user with ID \{invitedUserId}");
+-            }
+-        }
+-
+-        Course task = new Course(request.title(), request.description(), userId, invitedUsers, -1);
+-        return repository.createCourse(task);
+-    }
+-
+-    public boolean delete(long id) {
+-        return repository.deleteTask(id);
+-    }
+-
+-    public Optional<Course> findById(long id) {
+-        return repository.findCourseById(id);
+-    }
+-
+-    @Transactional
+-    public List<Course> listCoursesForUser(User user) {
+-        return repository.listCourses(user.id());
+-    }
+-
+-}
+Index: src/main/java/com/example/javaapp/controllers/ui/HomeUiController.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/controllers/ui/HomeUiController.java b/src/main/java/com/example/javaapp/controllers/ui/HomeUiController.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/controllers/ui/HomeUiController.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,12 +0,0 @@
+-package com.example.javaapp.controllers.ui;
+-
+-import org.springframework.stereotype.Controller;
+-import org.springframework.web.bind.annotation.GetMapping;
+-
+-@Controller
+-public class HomeUiController {
+-    @GetMapping("/")
+-    public String index() {
+-        return "index.html";
+-    }
+-}
+Index: src/main/java/com/example/javaapp/controllers/ui/StatisticsUiController.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/controllers/ui/StatisticsUiController.java b/src/main/java/com/example/javaapp/controllers/ui/StatisticsUiController.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/controllers/ui/StatisticsUiController.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,15 +0,0 @@
+-package com.example.javaapp.controllers.ui;
+-
+-import org.springframework.stereotype.Controller;
+-import org.springframework.web.bind.annotation.GetMapping;
+-import org.springframework.web.bind.annotation.RequestMapping;
+-
+-@Controller
+-@RequestMapping("/statistics")
+-public class StatisticsUiController {
+-    @GetMapping("/")
+-    public String statistics() {
+-        return "statistics.html";
+-    }
+-
+-}
+Index: src/main/java/com/example/javaapp/controllers/ui/CoursesUiController.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/controllers/ui/CoursesUiController.java b/src/main/java/com/example/javaapp/controllers/ui/CoursesUiController.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/controllers/ui/CoursesUiController.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,15 +0,0 @@
+-package com.example.javaapp.controllers.ui;
+-
+-import org.springframework.stereotype.Controller;
+-import org.springframework.web.bind.annotation.GetMapping;
+-import org.springframework.web.bind.annotation.RequestMapping;
+-
+-@Controller
+-@RequestMapping("/courses")
+-public class CoursesUiController {
+-    @GetMapping("/")
+-    public String courses() {
+-        return "courses.html";
+-    }
+-
+-}
+Index: src/main/java/com/example/javaapp/models/entities/Task.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/entities/Task.java b/src/main/java/com/example/javaapp/models/entities/Task.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/entities/Task.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,12 +0,0 @@
+-package com.example.javaapp.models.entities;
+-
+-import java.time.LocalDateTime;
+-
+-public record Task(
+-        String title,
+-        String description,
+-        long author,
+-        LocalDateTime deadline,
+-        long courseId,
+-        long id) {
+-}
+\ No newline at end of file
+Index: src/main/java/com/example/javaapp/controllers/api/CourseController.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/controllers/api/CourseController.java b/src/main/java/com/example/javaapp/controllers/api/CourseController.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/controllers/api/CourseController.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,106 +0,0 @@
+-package com.example.javaapp.controllers.api;
+-
+-import com.example.javaapp.exceptions.AccessDeniedException;
+-import com.example.javaapp.exceptions.InternalServerException;
+-import com.example.javaapp.exceptions.NotFoundException;
+-import com.example.javaapp.models.dto.ApiErrorResponse;
+-import com.example.javaapp.models.dto.CourseRequest;
+-import com.example.javaapp.models.dto.CourseResponse;
+-import com.example.javaapp.models.dto.LoginResponse;
+-import com.example.javaapp.models.entities.Course;
+-import com.example.javaapp.models.entities.User;
+-import com.example.javaapp.models.services.CourseService;
+-import com.example.javaapp.models.services.UserService;
+-import io.swagger.v3.oas.annotations.Operation;
+-import io.swagger.v3.oas.annotations.media.Content;
+-import io.swagger.v3.oas.annotations.media.Schema;
+-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+-import jakarta.servlet.http.HttpServletResponse;
+-import jakarta.validation.Valid;
+-import org.springframework.http.MediaType;
+-import org.springframework.http.ResponseEntity;
+-import org.springframework.web.bind.annotation.*;
+-
+-import java.util.Optional;
+-
+-@RestController
+-@RequestMapping(path = "/api/course", produces = MediaType.APPLICATION_JSON_VALUE)
+-public class CourseController {
+-    private final CourseService courseService;
+-    private final UserService userService;
+-
+-    public CourseController(CourseService courseService, UserService userService) {
+-        this.courseService = courseService;
+-        this.userService = userService;
+-    }
+-
+-    @Operation(summary = "Create a course")
+-    @ApiResponse(responseCode = "201")
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "409", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @PostMapping("/create")
+-    public Object create(@CookieValue(value = "token", defaultValue = "", required = false) String token, @Valid @RequestBody CourseRequest requestDto, HttpServletResponse response) {
+-        if (token.isBlank()) {
+-            throw new AccessDeniedException("You must be logged in to create courses.");
+-        }
+-        Optional<User> userOptional = userService.findByEncryptedEmail(token);
+-        if (userOptional.isPresent()) {
+-            User user = userOptional.get();
+-
+-            Optional<Course> courseOptional = courseService.create(requestDto, user.id());
+-            if (courseOptional.isPresent()) {
+-                Course course = courseOptional.get();
+-                return ResponseEntity.ok(new CourseResponse(course.title(), course.invitedUsers(), course.description(), course.author(), course.id()));
+-            } else {
+-                throw new InternalServerException("Course creation failed.");
+-            }
+-        } else {
+-            throw new AccessDeniedException("You must be logged in to create a course.");
+-        }
+-    }
+-
+-    @Operation(summary = "Delete a course")
+-    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
+-    @ApiResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @GetMapping(value = "/delete")
+-    public Object delete(@CookieValue(value = "token", defaultValue = "", required = false) String token, @RequestParam long id, HttpServletResponse response) {
+-        Optional<User> userOptional = userService.findByEncryptedEmail(token);
+-        if (userOptional.isPresent()) {
+-            User user = userOptional.get();
+-            Optional<Course> courseOptional = courseService.findById(id);
+-            if (courseOptional.isPresent()) {
+-                if (courseOptional.get().author() == user.id()) {
+-                    if (courseService.delete(id)) {
+-                        return ResponseEntity.ok().build();
+-                    } else {
+-                        throw new InternalServerException("Something went wrong.");
+-                    }
+-                } else {
+-                    throw new AccessDeniedException("You cannot delete a course that does not belong to you.");
+-                }
+-            } else {
+-                throw new NotFoundException("Course not found");
+-            }
+-        } else {
+-            throw new AccessDeniedException("You must be logged in to delete your course.");
+-        }
+-    }
+-
+-    @Operation(summary = "List courses")
+-    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @GetMapping(value = "/list")
+-    public Object list(@CookieValue(value = "token", defaultValue = "", required = false) String token, HttpServletResponse response) {
+-        Optional<User> userOptional = userService.findByEncryptedEmail(token);
+-        if (userOptional.isPresent()) {
+-            User user = userOptional.get();
+-            return ResponseEntity.ok(courseService.listCoursesForUser(user));
+-        } else {
+-            throw new AccessDeniedException("You must be logged in to view your courses.");
+-        }
+-    }
+-}
+Index: src/main/java/com/example/javaapp/models/repositories/TaskRepository.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/repositories/TaskRepository.java b/src/main/java/com/example/javaapp/models/repositories/TaskRepository.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/repositories/TaskRepository.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,88 +0,0 @@
+-package com.example.javaapp.models.repositories;
+-
+-import com.example.javaapp.models.entities.Task;
+-import org.springframework.jdbc.core.simple.JdbcClient;
+-import org.springframework.stereotype.Repository;
+-import org.springframework.util.Assert;
+-
+-import java.time.LocalDateTime;
+-import java.util.ArrayList;
+-import java.util.List;
+-import java.util.Map;
+-import java.util.Optional;
+-
+-@Repository
+-public class TaskRepository {
+-    private static final String DELETE = "DELETE FROM main.task WHERE id = :id";
+-    private static final String INSERT = "INSERT INTO main.task (title, description, author, deadline, course_id) VALUES (:title, :description, :author, :deadline, :course_id)";
+-    private static final String FINDTASK = "SELECT * FROM main.task WHERE title = :title;";
+-    private static final String FINDTASK_BY_ID = "SELECT * FROM main.task WHERE id = :id;";
+-    private static final String LIST_TASKS_FOR_USER =
+-            """
+-                    SELECT task.title AS task_title, task.description AS task_description, task.createdAt AS task_createdAt, task.deadline AS task_deadline
+-                    FROM main.course_invited_user
+-                    JOIN main.course ON main.course_invited_user.course_id = main.course.id
+-                    JOIN main.task ON main.course.id = main.task.course_id
+-                    JOIN authentication.user ON main.course_invited_user.user_id = authentication.user.id
+-                    WHERE authentication.user.id = :id;
+-                    """;
+-
+-    private final JdbcClient jdbcClient;
+-
+-    public TaskRepository(JdbcClient jdbcClient) {
+-        this.jdbcClient = jdbcClient;
+-    }
+-
+-    public Optional<Task> createTask(Task task) {
+-
+-        long affected = jdbcClient.sql(INSERT)
+-                .param("title", task.title())
+-                .param("description", task.description())
+-                .param("author", task.author())
+-                .param("deadline", task.deadline())
+-                .param("course_id", task.courseId())
+-                .update();
+-
+-        Assert.isTrue(affected == 1, "Could not add task.");
+-        return findTask(task.title());
+-    }
+-
+-    public Optional<Task> findTask(String title) {
+-        return jdbcClient.sql(FINDTASK)
+-                .param("title", title)
+-                .query(Task.class)
+-                .optional();
+-    }
+-
+-    public boolean deleteTask(long id) {
+-        return jdbcClient.sql(DELETE)
+-                .param("id", id)
+-                .update() == 1;
+-    }
+-
+-    public Optional<Task> findTaskById(long id) {
+-        return jdbcClient.sql(FINDTASK_BY_ID)
+-                .param("id", id)
+-                .query(Task.class)
+-                .optional();
+-    }
+-
+-    public List<Task> listTasksForUser(long id) {
+-        List<Map<String, Object>> result = jdbcClient.sql(LIST_TASKS_FOR_USER)
+-                .param("id", id)
+-                .query()
+-                .listOfRows();
+-
+-        List<Task> tasks = new ArrayList<>();
+-        for (Map<String, Object> row : result) {
+-            tasks.add(new Task(
+-                    (String) row.get("title"),
+-                    (String) row.get("description"),
+-                    (long) row.get("author"),
+-                    (LocalDateTime) row.get("deadline"),
+-                    (long) row.get("id"),
+-                    (long) row.get("course_id")));
+-        }
+-        return tasks;
+-    }
+-}
+\ No newline at end of file
+Index: src/main/java/com/example/javaapp/controllers/ui/AuthUiController.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/controllers/ui/AuthUiController.java b/src/main/java/com/example/javaapp/controllers/ui/AuthUiController.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/controllers/ui/AuthUiController.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,40 +0,0 @@
+-package com.example.javaapp.controllers.ui;
+-
+-
+-import com.example.javaapp.models.dto.LoginRequest;
+-import com.example.javaapp.models.dto.SignupRequest;
+-import com.example.javaapp.models.dto.LoginResponse;
+-import com.example.javaapp.models.repositories.UserRepository;
+-import com.example.javaapp.models.services.UserService;
+-import com.example.javaapp.utils.JwtHelper;
+-import jakarta.servlet.http.Cookie;
+-import jakarta.servlet.http.HttpServletResponse;
+-import jakarta.validation.Valid;
+-import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.security.authentication.AuthenticationManager;
+-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+-import org.springframework.stereotype.Controller;
+-import org.springframework.ui.Model;
+-import org.springframework.web.bind.annotation.*;
+-
+-@Controller
+-@RequestMapping("/auth")
+-public class AuthUiController {
+-    @GetMapping("/signup")
+-    public String showSignupForm() {
+-        return "signup";
+-    }
+-
+-    @GetMapping("/login")
+-    public String showLoginForm() {
+-        return "login";
+-    }
+-
+-    @GetMapping("/logout")
+-    public String logout(HttpServletResponse response) {
+-        Cookie cookie = new Cookie("token", "");
+-        cookie.setMaxAge(-1);
+-        response.addCookie(cookie);
+-        return "redirect:/auth/login";
+-    }
+-}
+\ No newline at end of file
+Index: src/main/java/com/example/javaapp/models/dto/UserResponse.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/dto/UserResponse.java b/src/main/java/com/example/javaapp/models/dto/UserResponse.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/dto/UserResponse.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,13 +0,0 @@
+-package com.example.javaapp.models.dto;
+-
+-import io.swagger.v3.oas.annotations.media.Schema;
+-
+-public record UserResponse(
+-        @Schema(description = "name")
+-        String name,
+-        @Schema(description = "email")
+-        String email,
+-        @Schema(description = "phone")
+-        String phone) {
+-
+-}
+Index: src/main/java/com/example/javaapp/Application.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/Application.java b/src/main/java/com/example/javaapp/Application.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/Application.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,13 +0,0 @@
+-package com.example.javaapp;
+-
+-import org.springframework.boot.SpringApplication;
+-import org.springframework.boot.autoconfigure.SpringBootApplication;
+-
+-@SpringBootApplication
+-public class Application {
+-
+-    public static void main(String[] args) {
+-        SpringApplication.run(Application.class, args);
+-    }
+-
+-}
+Index: src/main/java/com/example/javaapp/models/dto/LoginResponse.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/dto/LoginResponse.java b/src/main/java/com/example/javaapp/models/dto/LoginResponse.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/dto/LoginResponse.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,11 +0,0 @@
+-package com.example.javaapp.models.dto;
+-
+-import io.swagger.v3.oas.annotations.media.Schema;
+-
+-public record LoginResponse(
+-        @Schema(description = "email")
+-        String email,
+-        @Schema(description = "JWT token")
+-        String token) {
+-
+-}
+Index: src/main/java/com/example/javaapp/utils/JwtHelper.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/utils/JwtHelper.java b/src/main/java/com/example/javaapp/utils/JwtHelper.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/utils/JwtHelper.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,56 +0,0 @@
+-package com.example.javaapp.utils;
+-
+-import com.example.javaapp.exceptions.AccessDeniedException;
+-import io.jsonwebtoken.Claims;
+-import io.jsonwebtoken.ExpiredJwtException;
+-import io.jsonwebtoken.Jwts;
+-import io.jsonwebtoken.SignatureAlgorithm;
+-import io.jsonwebtoken.security.Keys;
+-import io.jsonwebtoken.security.SignatureException;
+-import java.security.Key;
+-import java.time.Instant;
+-import java.time.temporal.ChronoUnit;
+-import java.util.Date;
+-import org.springframework.security.core.userdetails.UserDetails;
+-
+-public class JwtHelper {
+-
+-    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+-
+-    public static String generateToken(String email) {
+-        var now = Instant.now();
+-        return Jwts.builder()
+-                .subject(email)
+-                .issuedAt(Date.from(now))
+-                .expiration(Date.from(now.plus(30, ChronoUnit.DAYS)))
+-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+-                .compact();
+-    }
+-
+-    public static String extractUsername(String token) {
+-        return getTokenBody(token).getSubject();
+-    }
+-
+-    public static Boolean validateToken(String token, UserDetails userDetails) {
+-        final String username = extractUsername(token);
+-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+-    }
+-
+-    private static Claims getTokenBody(String token) {
+-        try {
+-            return Jwts
+-                    .parser()
+-                    .setSigningKey(SECRET_KEY)
+-                    .build()
+-                    .parseSignedClaims(token)
+-                    .getPayload();
+-        } catch (SignatureException | ExpiredJwtException e) {
+-            throw new AccessDeniedException("Access denied: " + e.getMessage());
+-        }
+-    }
+-
+-    private static boolean isTokenExpired(String token) {
+-        Claims claims = getTokenBody(token);
+-        return claims.getExpiration().before(new Date());
+-    }
+-}
+Index: src/main/java/com/example/javaapp/exceptions/AccessDeniedException.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/exceptions/AccessDeniedException.java b/src/main/java/com/example/javaapp/exceptions/AccessDeniedException.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/exceptions/AccessDeniedException.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,8 +0,0 @@
+-package com.example.javaapp.exceptions;
+-
+-public class AccessDeniedException extends RuntimeException {
+-
+-    public AccessDeniedException(String message) {
+-        super(message);
+-    }
+-}
+Index: src/main/java/com/example/javaapp/controllers/api/AuthController.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/controllers/api/AuthController.java b/src/main/java/com/example/javaapp/controllers/api/AuthController.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/controllers/api/AuthController.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,103 +0,0 @@
+-package com.example.javaapp.controllers.api;
+-
+-import com.example.javaapp.exceptions.DuplicateException;
+-import com.example.javaapp.models.dto.*;
+-import com.example.javaapp.models.entities.User;
+-import com.example.javaapp.models.services.UserService;
+-import com.example.javaapp.utils.JwtHelper;
+-import io.swagger.v3.oas.annotations.Operation;
+-import io.swagger.v3.oas.annotations.media.Content;
+-import io.swagger.v3.oas.annotations.media.Schema;
+-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+-import jakarta.servlet.http.Cookie;
+-import jakarta.servlet.http.HttpServletResponse;
+-import jakarta.validation.Valid;
+-import org.springframework.http.HttpStatus;
+-import org.springframework.http.MediaType;
+-import org.springframework.http.ResponseEntity;
+-import org.springframework.security.authentication.AuthenticationManager;
+-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+-import org.springframework.web.bind.annotation.*;
+-
+-import java.util.Optional;
+-
+-@RestController
+-@RequestMapping(path = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
+-public class AuthController {
+-
+-    private final AuthenticationManager authenticationManager;
+-    private final UserService userService;
+-
+-    public AuthController(AuthenticationManager authenticationManager, UserService userService) {
+-        this.authenticationManager = authenticationManager;
+-        this.userService = userService;
+-    }
+-
+-    @Operation(summary = "Signup user")
+-    @ApiResponse(responseCode = "201")
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "409", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @PostMapping("/signup")
+-    public Object signup(@Valid @RequestBody SignupRequest requestDto, HttpServletResponse response) {
+-        Optional<User> userOptional = userService.signup(requestDto);
+-        if (userOptional.isPresent()) {
+-            User user = userOptional.get();
+-            String token = JwtHelper.generateToken(user.email());
+-            Cookie cookie = new Cookie("token", token);
+-            cookie.setPath("/");
+-            response.addCookie(cookie);
+-            return ResponseEntity.ok(new LoginResponse(user.email(), token));
+-        }
+-        throw new DuplicateException("User with this email already exists.");
+-    }
+-
+-    @Operation(summary = "Authenticate user and return token")
+-    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
+-    @ApiResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @PostMapping(value = "/login")
+-    public Object login(@Valid @RequestBody LoginRequest request, HttpServletResponse response) {
+-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
+-
+-        String token = JwtHelper.generateToken(request.email());
+-
+-        Cookie cookie = new Cookie("token", token);
+-        cookie.setPath("/");
+-        response.addCookie(cookie);
+-        return ResponseEntity.ok(new LoginResponse(request.email(), token));
+-    }
+-
+-    @Operation(summary = "Returns the user by token cookie")
+-    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
+-    @ApiResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @GetMapping(value = "/user")
+-    public Object getUser(@CookieValue(value = "token", defaultValue = "", required = false) String token) {
+-        if (token.isBlank()) {
+-            return ResponseEntity.ok().build();
+-        }
+-        Optional<User> userOptional = userService.findByEncryptedEmail(token);
+-        if (userOptional.isPresent()) {
+-            User user = userOptional.get();
+-            return ResponseEntity.ok(new UserResponse(user.name(), user.email(), user.phone()));
+-        } else {
+-            return ResponseEntity.noContent().build();
+-        }
+-    }
+-
+-    @Operation(summary = "Logout user")
+-    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
+-    @ApiResponse(responseCode = "404", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+-    @GetMapping(value = "/logout")
+-    public Object logout(HttpServletResponse response) {
+-        Cookie cookie = new Cookie("token", "");
+-        cookie.setMaxAge(-1);
+-        cookie.setPath("/");
+-        response.addCookie(cookie);
+-        return ResponseEntity.status(HttpStatus.OK).build();
+-    }
+-}
+Index: src/main/java/com/example/javaapp/models/entities/User.java
+===================================================================
+diff --git a/src/main/java/com/example/javaapp/models/entities/User.java b/src/main/java/com/example/javaapp/models/entities/User.java
+deleted file mode 100644
+--- a/src/main/java/com/example/javaapp/models/entities/User.java	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
++++ /dev/null	(revision c231d2ca804be904b5a8d45174b780dfc83ac7cb)
+@@ -1,8 +0,0 @@
+-package com.example.javaapp.models.entities;
+-
+-public record User(String name,
+-                   String email,
+-                   String password,
+-                   String phone,
+-                   long id) {
+-}

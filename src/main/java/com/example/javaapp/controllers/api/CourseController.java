@@ -3,10 +3,7 @@ package com.example.javaapp.controllers.api;
 import com.example.javaapp.exceptions.AccessDeniedException;
 import com.example.javaapp.exceptions.InternalServerException;
 import com.example.javaapp.exceptions.NotFoundException;
-import com.example.javaapp.models.dto.ApiErrorResponse;
-import com.example.javaapp.models.dto.CourseRequest;
-import com.example.javaapp.models.dto.CourseResponse;
-import com.example.javaapp.models.dto.LoginResponse;
+import com.example.javaapp.models.dto.*;
 import com.example.javaapp.models.entities.Course;
 import com.example.javaapp.models.entities.User;
 import com.example.javaapp.models.services.CourseService;
@@ -21,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -51,7 +50,22 @@ public class CourseController {
             Optional<Course> courseOptional = courseService.create(requestDto, user.id());
             if (courseOptional.isPresent()) {
                 Course course = courseOptional.get();
-                return ResponseEntity.ok(new CourseResponse(course.title(), course.invitedUsers(), course.description(), course.author(), course.id()));
+                List<UserResponse> invitedUsers = new ArrayList<>();
+                for (User invitedUser : course.invitedUsers()) {
+                    invitedUsers.add(new UserResponse(
+                            invitedUser.name(),
+                            invitedUser.email(),
+                            invitedUser.phone()
+                    ));
+                }
+                CourseResponse courseResponse = new CourseResponse(
+                        course.title(),
+                        invitedUsers,
+                        course.description(),
+                        course.author(),
+                        course.id()
+                );
+                return ResponseEntity.ok(courseResponse);
             } else {
                 throw new InternalServerException("Course creation failed.");
             }
@@ -98,7 +112,26 @@ public class CourseController {
         Optional<User> userOptional = userService.findByEncryptedEmail(token);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            return ResponseEntity.ok(courseService.listCoursesForUser(user));
+            List<CourseResponse> courses = new ArrayList<>();
+            for (Course course : courseService.listCoursesForUser(user)) {
+
+                List<UserResponse> invitedUsers = new ArrayList<>();
+                for (User invitedUser : course.invitedUsers()) {
+                    invitedUsers.add(new UserResponse(
+                            invitedUser.name(),
+                            invitedUser.email(),
+                            invitedUser.phone()
+                    ));
+                }
+                courses.add(new CourseResponse(
+                    course.title(),
+                    invitedUsers,
+                    course.description(),
+                    course.author(),
+                    course.id()
+                ));
+            }
+            return ResponseEntity.ok(courses);
         } else {
             throw new AccessDeniedException("You must be logged in to view your courses.");
         }
