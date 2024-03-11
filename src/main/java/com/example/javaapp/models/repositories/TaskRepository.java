@@ -61,10 +61,19 @@ public class TaskRepository {
     }
 
     public Optional<Task> findTaskById(long id) {
-        return jdbcClient.sql(FINDTASK_BY_ID)
+        JdbcClient.ResultQuerySpec resultQuerySpec = jdbcClient.sql(FINDTASK_BY_ID)
                 .param("id", id)
-                .query(Task.class)
-                .optional();
+                .query();
+        if (resultQuerySpec.listOfRows().isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(new Task(
+                (String) resultQuerySpec.singleRow().get("title"),
+                (String) resultQuerySpec.singleRow().get("description"),
+                (long) resultQuerySpec.singleRow().get("author"),
+                (LocalDateTime) resultQuerySpec.singleRow().get("deadline"),
+                (long) resultQuerySpec.singleRow().get("id"),
+                (long) resultQuerySpec.singleRow().get("course_id")));
     }
 
     public List<Task> listTasksForUser(long id) {

@@ -23,11 +23,11 @@
       );
 
       CREATE TABLE IF NOT EXISTS main.contact (
-      owner BIGSERIAL,
-      contact_id BIGSERIAL,
-      id BIGSERIAL NOT NULL PRIMARY KEY,
-      FOREIGN KEY (owner) REFERENCES authentication.user(id),
-      FOREIGN KEY (contact_id) REFERENCES authentication.user(id)
+        owner BIGSERIAL,
+        contact_id BIGSERIAL,
+        id BIGSERIAL NOT NULL PRIMARY KEY,
+        FOREIGN KEY (owner) REFERENCES authentication.user(id),
+        FOREIGN KEY (contact_id) REFERENCES authentication.user(id)
       );
 
       CREATE TABLE IF NOT EXISTS main.task (

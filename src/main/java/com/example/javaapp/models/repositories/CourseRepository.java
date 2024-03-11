@@ -1,11 +1,13 @@
 package com.example.javaapp.models.repositories;
 
 import com.example.javaapp.models.entities.Course;
+import com.example.javaapp.models.entities.Task;
 import com.example.javaapp.models.entities.User;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -134,14 +136,47 @@ public class CourseRepository {
     }
 
     public Optional<Course> findCourseById(long id) {
+        return findCourseById(id, true);
+    }
+
+    public Optional<Course> findCourseById(long id, boolean isLoadInvitedUsers) {
         try {
-            return jdbcClient.sql(FINDCOURSE_BY_ID)
+            JdbcClient.ResultQuerySpec resultQuerySpec = jdbcClient.sql(FINDCOURSE_BY_ID)
                     .param("id", id)
-                    .query(Course.class)
-                    .optional();
+                    .query();
+            if (resultQuerySpec.listOfRows().isEmpty()) {
+                return Optional.empty();
+            }
+            Map<String, Object> result = resultQuerySpec
+                    .singleRow();
+
+            List<User> invitedUsers = new ArrayList<>();
+            Course course = new Course(
+                    (String) result.get("title"),
+                    (String) result.get("description"),
+                    (long) result.get("author"),
+                    invitedUsers,
+                    (long) result.get("id"));
+            if (isLoadInvitedUsers) {
+                List<Map<String, Object>> result2 = jdbcClient.sql(FIND_INVITED_USERS)
+                        .param("id", course.id())
+                        .query()
+                        .listOfRows();
+
+                for (Map<String, Object> row : result2) {
+                    invitedUsers.add(new User(
+                            (String) row.get("name"),
+                            (String) row.get("email"),
+                            (String) row.get("password"),
+                            (String) row.get("phone"),
+                            (long) row.get("id")));
+                }
+            }
+            return Optional.of(course);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
+
 }
