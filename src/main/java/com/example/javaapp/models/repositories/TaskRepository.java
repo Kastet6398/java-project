@@ -16,7 +16,7 @@ public class TaskRepository {
     private static final String DELETE = "DELETE FROM main.task WHERE id = :id";
     private static final String INSERT = "INSERT INTO main.task (title, description, author, deadline, course_id) VALUES (:title, :description, :author, :deadline, :course_id)";
     private static final String FINDTASK = "SELECT * FROM main.task WHERE title = :title;";
-    private static final String FINDTASK_BY_ID = "SELECT * FROM main.task WHERE id = :id;";
+    private static final String FINDTASK_BY_ID = "SELECT * FROM main.task WHERE id = :id AND course_id = :course_id;";
     private static final String LIST_TASKS_FOR_USER =
             """
                     SELECT task.title AS task_title, task.description AS task_description, task.createdAt AS task_createdAt, task.deadline AS task_deadline
@@ -44,12 +44,13 @@ public class TaskRepository {
                 .update();
 
         Assert.isTrue(affected == 1, "Could not add task.");
-        return findTask(task.title());
+        return findTask(task.title(), task.courseId());
     }
 
-    public Optional<Task> findTask(String title) {
+    public Optional<Task> findTask(String title, long courseId) {
         return jdbcClient.sql(FINDTASK)
                 .param("title", title)
+                .param("course_id", courseId)
                 .query(Task.class)
                 .optional();
     }
