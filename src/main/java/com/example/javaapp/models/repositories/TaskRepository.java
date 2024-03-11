@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class TaskRepository {
     private static final String FINDTASK_BY_ID = "SELECT * FROM main.task WHERE id = :id AND course_id = :course_id;";
     private static final String LIST_TASKS_FOR_USER =
             """
-                    SELECT task.title AS task_title, task.description AS task_description, task.createdAt AS task_createdAt, task.deadline AS task_deadline
+                    SELECT task.*
                     FROM main.course_invited_user
                     JOIN main.course ON main.course_invited_user.course_id = main.course.id
                     JOIN main.task ON main.course.id = main.task.course_id
@@ -72,27 +72,33 @@ public class TaskRepository {
                 (String) resultQuerySpec.singleRow().get("title"),
                 (String) resultQuerySpec.singleRow().get("description"),
                 (long) resultQuerySpec.singleRow().get("author"),
-                (LocalDateTime) resultQuerySpec.singleRow().get("deadline"),
+                ((Timestamp) resultQuerySpec.singleRow().get("deadline")).toLocalDateTime(),
                 (long) resultQuerySpec.singleRow().get("id"),
                 (long) resultQuerySpec.singleRow().get("course_id")));
     }
 
     public List<Task> listTasksForUser(long id) {
-        List<Map<String, Object>> result = jdbcClient.sql(LIST_TASKS_FOR_USER)
-                .param("id", id)
-                .query()
-                .listOfRows();
+        try {
+            List<Map<String, Object>> result = jdbcClient.sql(LIST_TASKS_FOR_USER)
+                    .param("id", id)
+                    .query()
+                    .listOfRows();
 
-        List<Task> tasks = new ArrayList<>();
-        for (Map<String, Object> row : result) {
-            tasks.add(new Task(
-                    (String) row.get("title"),
-                    (String) row.get("description"),
-                    (long) row.get("author"),
-                    (LocalDateTime) row.get("deadline"),
-                    (long) row.get("id"),
-                    (long) row.get("course_id")));
+            List<Task> tasks = new ArrayList<>();
+            for (Map<String, Object> row : result) {
+                System.out.println(row);
+                tasks.add(new Task(
+                        (String) row.get("title"),
+                        (String) row.get("description"),
+                        (long) row.get("author"),
+                        ((Timestamp) row.get("deadline")).toLocalDateTime(),
+                        (long) row.get("id"),
+                        (long) row.get("course_id")));
+            }
+            return tasks;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
-        return tasks;
     }
 }

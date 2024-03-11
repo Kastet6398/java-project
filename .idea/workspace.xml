@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="48d4b3a7-341e-490a-aa85-65108c088c39" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/CourseResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/CourseResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/TaskRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/TaskService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +58,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Application.executor": "Run",
+    "Application.CourseController.executor": "Run",
     "DefaultHtmlFileTemplate": "HTML File",
     "Docker.Dockerfile build.executor": "Run",
     "Docker.Dockerfile: Compose Deployment.executor": "Run",
@@ -66,7 +70,7 @@
     "TestNG.ApiControllerTest.executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "DEV-10-rollback",
+    "git-widget-placeholder": "DEV-12",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "/home/konstantin/IdeaProjects/java project/src/test/java",
     "last_opened_file_path": "/home/konstantin/Documents/IdeaProjects/java project/src/main/resources/templates",

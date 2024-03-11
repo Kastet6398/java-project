@@ -1,6 +1,7 @@
 package com.example.javaapp.models.services;
 
 import com.example.javaapp.exceptions.AccessDeniedException;
+import com.example.javaapp.exceptions.DuplicateException;
 import com.example.javaapp.exceptions.NotFoundException;
 import com.example.javaapp.models.dto.TaskRequest;
 import com.example.javaapp.models.entities.Course;
@@ -29,6 +30,12 @@ public class TaskService {
         Optional<Course> courseOptional = courseService.findById(request.courseId());
         if (courseOptional.isPresent()) {
             if (courseOptional.get().author() == userId) {
+                String title = request.title();
+                Optional<Task> existingTask = repository.findTask(title, request.courseId());
+                if (existingTask.isPresent()) {
+                    throw new DuplicateException(STR."Task with the title '\{title}' already exists.");
+                }
+
                 Task task = new Task(request.title(), request.description(), userId, request.deadline(), request.courseId(), -1);
                 return repository.createTask(task);
             } else {
