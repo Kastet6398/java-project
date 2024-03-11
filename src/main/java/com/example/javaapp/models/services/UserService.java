@@ -13,13 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class UserService {
-    private final UserService userService;
 
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserService userService, UserRepository repository, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
+    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
     }

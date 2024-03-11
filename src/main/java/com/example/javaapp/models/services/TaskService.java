@@ -31,7 +31,7 @@ public class TaskService {
         if (courseOptional.isPresent()) {
             if (courseOptional.get().author() == userId) {
                 String title = request.title();
-                Optional<Task> existingTask = repository.findTask(title);
+                Optional<Task> existingTask = repository.findTask(title, request.courseId());
                 if (existingTask.isPresent()) {
                     throw new DuplicateException(STR."Task with the title '\{title}' already exists.");
                 }
