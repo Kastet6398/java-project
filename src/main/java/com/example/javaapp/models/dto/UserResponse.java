@@ -9,5 +9,4 @@ public record UserResponse(
         String email,
         @Schema(description = "phone")
         String phone) {
-
 }
