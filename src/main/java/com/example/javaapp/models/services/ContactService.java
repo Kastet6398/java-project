@@ -23,17 +23,6 @@ public class ContactService {
     }
 
     @Transactional
-    public Optional<Long> addContact(User owner, String name, User contact) {
-
-
-        Optional<Long> existingContactId = repository.addContact(owner, userOptional2.get(), name);
-        if (existingContactId.isPresent()) {
-            throw new DuplicateException("Contact already exists.");
-        }
-        return existingContactId;
-    }
-
-    @Transactional
     public boolean deleteContact(long id) {
         return repository.deleteContact(id);
     }
@@ -44,5 +33,12 @@ public class ContactService {
 
     public List<Map<String, Object>> findContactsForUser(User owner) {
         return repository.findContactsForUser(owner);
+    }
+
+    public Optional<Contact> addContact(Contact contact) {
+
+        Optional<Contact> existingContactId = repository.addContact(contact.owner(), contact.contact(), contact.name());
+
+        return existingContactId;
     }
 }

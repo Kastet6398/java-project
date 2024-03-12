@@ -1,21 +1,11 @@
 package com.example.javaapp.controllers.ui;
 
 
-import com.example.javaapp.models.dto.LoginRequest;
-import com.example.javaapp.models.dto.SignupRequest;
-import com.example.javaapp.models.dto.LoginResponse;
-import com.example.javaapp.models.repositories.UserRepository;
-import com.example.javaapp.models.services.UserService;
-import com.example.javaapp.utils.JwtHelper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/auth")

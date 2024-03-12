@@ -5,10 +5,12 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.javaapp.exceptions.AccessDeniedException;
 import com.example.javaapp.exceptions.DuplicateException;
 import com.example.javaapp.exceptions.InternalServerException;
 import com.example.javaapp.exceptions.NotFoundException;
@@ -33,10 +35,10 @@ public class RestExceptionHandler {
 
         List<String> errors = new ArrayList<>();
         e.getBindingResult()
-                .getFieldErrors().forEach(error -> errors.add(error.getField() + ": " + error.getDefaultMessage()));
+                .getFieldErrors().forEach(error -> errors.add(STR."\{error.getField()}: \{error.getDefaultMessage()}"));
         e.getBindingResult()
                 .getGlobalErrors() //Global errors are not associated with a specific field but are related to the entire object being validated.
-                .forEach(error -> errors.add(error.getObjectName() + ": " + error.getDefaultMessage()));
+                .forEach(error -> errors.add(STR."\{error.getObjectName()}: \{error.getDefaultMessage()}"));
 
         String message = "Validation of request failed: %s".formatted(String.join(", ", errors));
         return ResponseEntity.status(BAD_REQUEST).body(new ApiErrorResponse(BAD_REQUEST.value(), message));
@@ -52,6 +54,12 @@ public class RestExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleInternalServerException() {
         return ResponseEntity.status(INTERNAL_SERVER_ERROR)
                 .body(new ApiErrorResponse(INTERNAL_SERVER_ERROR.value(), "Internal server error"));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiErrorResponse> handleAccessDeniedExceptionException(AccessDeniedException e) {
+        return ResponseEntity.status(FORBIDDEN)
+                .body(new ApiErrorResponse(FORBIDDEN.value(), e.getMessage()));
     }
 
     @ExceptionHandler(DuplicateException.class)

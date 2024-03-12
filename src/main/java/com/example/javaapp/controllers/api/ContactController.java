@@ -55,17 +55,18 @@ public class ContactController {
             User owner = userOptional.get();
             Optional<User> userOptional2 = userService.findById(requestDto.id());
             if (userOptional2.isPresent()) {
-                Optional<Long> contactId = contactService.addContact(owner, requestDto.name(), userOptional2.get());
+                Optional<Contact> contactId = contactService.addContact(new Contact(requestDto.name(), owner, userOptional2.get(), -1));
                 if (contactId.isPresent()) {
-                    return ResponseEntity.status(201).body(new ContactResponse(requestDto.id(), contactId.get()));
+                    return ResponseEntity.status(201).body(new ContactResponse(requestDto.id(), contactId.get().id()));
                 } else {
                     throw new InternalServerException("Contact creation failed.");
                 }
+            } else {
+                throw new NotFoundException("Contact user not found");
             }
         } else {
             throw new AccessDeniedException("You must be logged in to add a contact.");
         }
-        return null;
     }
 
     @Operation(summary = "Delete a contact")
@@ -79,7 +80,6 @@ public class ContactController {
                                 HttpServletResponse response) {
         Optional<User> userOptional = userService.findByEncryptedEmail(token);
         if (userOptional.isPresent()) {
-            User owner = userOptional.get();
             if (contactService.deleteContact(id)) {
                 return ResponseEntity.ok().build();
             } else {
