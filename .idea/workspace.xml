@@ -5,17 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48d4b3a7-341e-490a-aa85-65108c088c39" name="Changes" comment=".">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/NoteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/NoteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/NoteResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/entities/Note.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/NoteRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/NoteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_3_11_24__5_42_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_3_11_24__5_42_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/ContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/ContactController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/api/RestExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/ui/AuthUiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/controllers/ui/AuthUiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/ContactRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/dto/ContactRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/repositories/ContactRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/ContactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javaapp/models/services/ContactService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db/changelog-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/changelog-master.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/RestExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/api/RestExceptionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/ui/AuthUiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/javaapp/controllers/ui/AuthUiController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/db/changelog-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/changelog-master.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,15 +25,15 @@
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
         <option value="HTML File" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="DEV-9" />
+        <entry key="$PROJECT_DIR$" value="DEV-13" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,7 +73,7 @@
     "TestNG.ApiControllerTest.executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "DEV-11",
+    "git-widget-placeholder": "DEV-14",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "/home/konstantin/IdeaProjects/java project/src/test/java",
     "last_opened_file_path": "/home/konstantin/Documents/IdeaProjects/java project/src/main/resources/templates",
