@@ -227,3 +227,101 @@ body {
         filter: hue-rotate(540deg);
     }
 }
+.form-control {
+  /* Общие стили для текстового поля */
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-group-text {
+  /* Стили для элемента, содержащего иконку */
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border-color: #ced4da;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.input-group-text:hover {
+  background-color: #e9ecef; /* Новый цвет фона при наведении */
+  border-color: #adb5bd; /* Новый цвет границы при наведении */
+}
+/* Reset some default styles */
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.navbar-nav {
+  list-style: none;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: inline-block;
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  list-style: none;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+}
+
+.dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
