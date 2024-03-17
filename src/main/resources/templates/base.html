@@ -1,98 +1,613 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/base.css">
-    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js" defer></script>
-    <script src="https://cdn.tailwindcss.com" defer></script>
-    <script src="/static/js/homePage.js" defer></script>
+    <title>Sidebar with Footer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap">
+    <link rel="stylesheet" type="text/css"
+        href="https://mdbootstrap.com/api/snippets/static/download/MDB5-Free_5.0.0/css/mdb.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/mdb-plugins-gathered.min.css">
+    <style>
+        @media (min-width: 991.98px) {
+            main {
+                padding-left: 240px;
+            }
+        }
+
+        .sidebar {
+            height: fit-content;
+        }
+
+        .pt-6 {
+            padding-top: 80px;
+        }
+
+        /* Sidebar */
+        /* Sidebar */
+        .sidebar {
+            position: absolute;
+            /* Changed from fixed */
+            top: 0;
+            bottom: 0;
+            left: 0;
+            padding: 58px 0 0;
+            /* Height of navbar */
+            box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+            width: 240px;
+            z-index: 600;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar {
+                width: 100%;
+                position: static;
+                /* Changed from fixed */
+                padding: 0;
+                /* Changed from 58px 0 0 */
+            }
+        }
+
+        /* Sticky sidebar in main content */
+        .sidebar-sticky {
+            position: sticky;
+            /* Changed from relative */
+            top: 80px;
+            /* Adjusted top position */
+            height: calc(100vh - 80px);
+            /* Adjusted height */
+            padding-top: 0.5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+            /* Scrollable contents if viewport is shorter than content. */
+        }
+
+        /* Custom styles for dark theme */
+        body {
+            background-color: #1c1e21;
+            color: #fff;
+        }
+
+        .bg-dark {
+            background-color: #1c1e21 !important;
+        }
+
+        .navbar {
+            background-color: #343a40 !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: rgba(255, 255, 255, 0.75) !important;
+        }
+
+        .list-group-item {
+            background-color: #343a40 !important;
+            color: #fff !important;
+            border-radius: 10px;
+            border-color: #454d55 !important;
+        }
+
+        .list-group-item:hover {
+            background-color: #454d55 !important;
+            color: #fff !important;
+        }
+
+        .dropdown-menu {
+            background-color: #343a40 !important;
+            border-color: #454d55 !important;
+        }
+
+        .dropdown-menu .dropdown-item {
+            color: #fff !important;
+        }
+
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #454d55 !important;
+            color: #fff !important;
+        }
+
+        .btn-primary {
+            background-color: #007bff !important;
+            border-color: #007bff !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3 !important;
+            border-color: #0056b3 !important;
+        }
+
+        .bg-light {
+            background-color: #343a40 !important;
+        }
+
+        .text-dark {
+            color: #fff !important;
+        }
+
+        .text-dark:hover {
+            color: rgba(255, 255, 255, 0.75) !important;
+        }
+
+        .pt-7 {
+            padding-top: 100px;
+        }
+
+        .anim {
+            animation: animate 4s linear infinite;
+            background-color: #102030;
+        }
+
+        .anim-1 {
+            animation: animate-1 4s linear infinite;
+        }
+
+        .anim-2 {
+            animation: animate-2 4s linear infinite;
+        }
+
+        .anim-3 {
+            animation: animate-3 4s linear infinite;
+        }
+
+        .anim-4 {
+            animation: animate-4 4s linear infinite;
+        }
+
+        .anim-5 {
+            animation: animate-5 4s linear infinite;
+        }
+
+        .anim-6 {
+            animation: animate-6 4s linear infinite;
+        }
+
+        .anim-7 {
+            animation: animate-7 4s linear infinite;
+        }
+
+        @keyframes animate-1 {
+            from {
+                filter: hue-rotate(0deg);
+            }
+
+            to {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        @keyframes animate-2 {
+            from {
+                filter: hue-rotate(30deg);
+            }
+
+            to {
+                filter: hue-rotate(390deg);
+            }
+        }
+
+        @keyframes animate-3 {
+            from {
+                filter: hue-rotate(60deg);
+            }
+
+            to {
+                filter: hue-rotate(420deg);
+            }
+        }
+
+        @keyframes animate-4 {
+            from {
+                filter: hue-rotate(90deg);
+            }
+
+            to {
+                filter: hue-rotate(450deg);
+            }
+        }
+
+        @keyframes animate-5 {
+            from {
+                filter: hue-rotate(120deg);
+            }
+
+            to {
+                filter: hue-rotate(480deg);
+            }
+        }
+
+        @keyframes animate-6 {
+            from {
+                filter: hue-rotate(150deg);
+            }
+
+            to {
+                filter: hue-rotate(510deg);
+            }
+        }
+
+        @keyframes animate-7 {
+            from {
+                filter: hue-rotate(180deg);
+            }
+
+            to {
+                filter: hue-rotate(540deg);
+            }
+        }
+    </style>
 </head>
+
 <body>
-<div class="container max-w-7xl pt-5 pb-12 mb-12">
-<div class="gradient-line">
-</div>
-<div class="row">
-    <div class="col">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 124.8372 55.2489" class="logo">
-            <style>
-                .draw-path {
-                    --length: 100;
-                    stroke-dasharray: var(--length) var(--length);
-                    stroke-dashoffset: var(--path-from);
-                    filter: blur(10px);
-                    fill: none;
-                    animation: draw 1.5s infinite ease-in-out;
-                }
 
-                .u-path {
-                    --path-from: calc(var(--length) * 3px);
-                    --path-to: var(--length);
-                }
+    <header>
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-dark">
+            <div class="position-sticky">
+                <div class="list-group mx-3 mt-5">
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
+                        <i class="fas fa-chart-area fa-fw me-3"></i><span>Webiste traffic</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+                            class="fas fa-lock fa-fw me-3"></i><span>Password</span></a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+                            class="fas fa-chart-line fa-fw me-3"></i><span>Analytics</span></a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+                            class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+                            class="fas fa-globe fa-fw me-3"></i><span>International</span></a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+                            class="fas fa-building fa-fw me-3"></i><span>Partners</span></a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+                            class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+                            class="fas fa-users fa-fw me-3"></i><span>Users</span></a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+                            class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></a>
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
 
-                .seven-path {
-                    --path-from: calc(var(--length) * -3px);
-                    --path-to: calc(var(--length) * -1px);
-                    animation-delay: 0.4s;
-                }
+        <!-- Navbar -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+                    aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
 
-                @keyframes draw {
-                    from {
-                        stroke-dashoffset: var(--path-from);
-                    }
+                <!-- Brand -->
+                <a class="navbar-brand" href="/">
+                    <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="25" alt=""
+                        loading="lazy" />
+                </a>
+                <!-- Search form -->
+                <form class="d-none d-md-flex input-group w-auto my-auto">
+                    <input autocomplete="off" type="search" class="form-control rounded"
+                        placeholder='Search (ctrl + "/" to focus)' style="min-width: 225px" />
+                    <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+                </form>
+                <!-- Right links -->
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <!-- Notification dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#"
+                            id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Some news</a></li>
+                            <li><a class="dropdown-item" href="#">Another news</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </li>
+                        </ul>
+                    </li>
 
-                    to {
-                        stroke-dashoffset: var(--path-to);
-                        opacity: 0;
-                    }
-                }
-            </style>
-            <defs>
-                <linearGradient id="seven-gradient" gradientUnits="userSpaceOnUse" x1="23.5345" y1="27.9014" x2="121.9345" y2="27.9014" gradientTransform="matrix(1 0 0 -1 0 55.8028)">
-                    <stop offset="0" style="stop-color: #f0ebab" />
-                    <stop offset="0.4" style="stop-color: #f3b4ce" />
-                    <stop offset="1" style="stop-color: #96cfca" />
-                </linearGradient>
-                <clipPath id="clip-seven">
-                    <path d="M102.2345,2.9014v9.8h9.6v23.6l-65.3-33.3l-0.3-0.1h-22.7l32.4,16.3l66,33.7v-50H102.2345z" />
-                </clipPath>
-                <clipPath id="clip-u">
-                    <path d="M52.3345,38.5014c0,2.2091-1.7909,4-4,4h-31.6c-2.2091,0-4-1.7909-4-4v-35.6h-9.8v35.6c0,7.7,6.2,13.9,13.8,13.9h31.6c7.6,0,13.8-6.2,13.8-13.9v-8.1l-9.8-5V38.5014z" />
-                </clipPath>
-            </defs>
+                    <!-- Icon -->
+                    <li class="nav-item">
+                        <a class="nav-link me-3 me-lg-0" href="#">
+                            <i class="fas fa-fill-drip"></i>
+                        </a>
+                    </li>
+                    <!-- Icon -->
+                    <li class="nav-item me-3 me-lg-0">
+                        <a class="nav-link" href="#">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </li>
 
-            <g fill="rgba(255,255,255,0.08)">
-                <path d="M102.2345,2.9014v9.8h9.6v23.6l-65.3-33.3l-0.3-0.1h-22.7l32.4,16.3l66,33.7v-50H102.2345z" />
-                <path d="M52.3345,38.5014c0,2.2091-1.7909,4-4,4h-31.6c-2.2091,0-4-1.7909-4-4v-35.6h-9.8v35.6c0,7.7,6.2,13.9,13.8,13.9h31.6c7.6,0,13.8-6.2,13.8-13.9v-8.1l-9.8-5V38.5014z" />
-            </g>
+                    <!-- Icon dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdown"
+                            role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <i class="fi fi-gb m-0"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-gb"></i> English
+                                    <i class="fa fa-check text-success ms-2"></i></a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-pl"></i> Українська</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-pl"></i> Polski</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-cn"></i> 中文</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-jp"></i> 日本語</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-de"></i> Deutsch</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-fr"></i> Français</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-es"></i> Español</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-ru"></i> Русский</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fi fi-pr"></i> Português</a>
+                            </li>
+                        </ul>
+                    </li>
 
-            <path clip-path="url(#clip-seven)" class="draw-path seven-path" stroke="url(#seven-gradient)" stroke-width="11" stroke-miterlimit="10" d="M102.0318,7.8102h14.9001v36.7666L25.5799-1.9312" pathLength="100" />
-            <path clip-path="url(#clip-u)" class="draw-path u-path" stroke="#fff" stroke-width="11" stroke-miterlimit="10" d="M7.8842,2.7939l0.0451,35.4694c0,5.0171,3.8335,9.0363,8.8506,9.0363h31.1442c5.0171,0,9.0843-4.0672,9.0843-9.0843V24.9046" pathLength="100" />
-            <path clip-path="url(#clip-seven)" class="draw-path seven-path" stroke="url(#seven-gradient)" stroke-width="11" stroke-miterlimit="10" d="M102.0318,7.8102h14.9001v36.7666L25.5799-1.9312" pathLength="100" />
-            <path clip-path="url(#clip-u)" class="draw-path u-path" stroke="#fff" stroke-width="11" stroke-miterlimit="10" d="M7.8842,2.7939l0.0451,35.4694c0,5.0171,3.8335,9.0363,8.8506,9.0363h31.1442c5.0171,0,9.0843-4.0672,9.0843-9.0843V24.9046" pathLength="100" />
-            <path clip-path="url(#clip-seven)" class="draw-path seven-path" stroke="url(#seven-gradient)" stroke-width="11" stroke-miterlimit="10" d="M102.0318,7.8102h14.9001v36.7666L25.5799-1.9312" pathLength="100" />
-            <path clip-path="url(#clip-u)" class="draw-path u-path" stroke="#fff" stroke-width="11" stroke-miterlimit="10" d="M7.8842,2.7939l0.0451,35.4694c0,5.0171,3.8335,9.0363,8.8506,9.0363h31.1442c5.0171,0,9.0843-4.0672,9.0843-9.0843V24.9046" pathLength="100" />
-        </svg>
-    </div>
-</div>
-<div layout:fragment="content" class="content">
-</div>
-    <div class="gradient-background__wrapper">
-        <div class="gradient-background">
-            <div class="gradient-background__shape gradient-background__shape--1"></div>
-            <div class="gradient-background__shape gradient-background__shape--2"></div>
+                    <!-- Avatar -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
+                            id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle"
+                                height="22" alt="" loading="lazy" />
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">My profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main class="bg-dark text-white">
+        <section style="min-height: calc(100vh - 58px);">
+
+            <div layout:fragment="content" class="container pt-7">
+            </div>
+        </section>
+    </main>
+    <footer class="bg-dark text-white text-center text-lg-start">
+        <!-- Copyright -->
+        <div style="background-color: rgba(0, 0, 0, 0.2);">
+            <!-- Grid container -->
+            <div class="container p-4">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+
+                    <!-- Facebook -->
+                    <a data-mdb-ripple-init class="btn btn-outline btn-light btn-floating m-1 anim anim-2" href="#!"
+                        role="button"><i class="fab fa-facebook-f"></i></a>
+
+                    <!-- Twitter -->
+                    <a data-mdb-ripple-init class="btn btn-outline btn-light btn-floating m-1 anim anim-3" href="#!"
+                        role="button"><i class="fab fa-twitter"></i></a>
+
+                    <!-- Google -->
+                    <a data-mdb-ripple-init class="btn btn-outline btn-light btn-floating m-1 anim anim-4" href="#!"
+                        role="button"><i class="fab fa-google"></i></a>
+
+                    <!-- Instagram -->
+                    <a data-mdb-ripple-init class="btn btn-outline btn-light btn-floating m-1 anim anim-5" href="#!"
+                        role="button"><i class="fab fa-instagram"></i></a>
+
+                    <!-- Linkedin -->
+                    <a data-mdb-ripple-init class="btn btn-outline btn-light btn-floating m-1 anim anim-6" href="#!"
+                        role="button"><i class="fab fa-linkedin-in"></i></a>
+
+                    <!-- Github -->
+                    <a data-mdb-ripple-init class="btn btn-outline btn-light btn-floating m-1 anim anim-7" href="#!"
+                        role="button"><i class="fab fa-github"></i></a>
+                </section>
+                <!-- Section: Social media -->
+
+                <!-- Section: Form -->
+                <section class="">
+                    <form action="" method="POST">
+                        <!--Grid row-->
+                        <div class="row d-flex justify-content-center">
+                            <!--Grid column-->
+                            <div class="col-auto">
+                                <p class="pt-2">
+                                    <strong>Sign up for our newsletter</strong>
+                                </p>
+                            </div>
+                            <!--Grid column-->
+
+                            <!--Grid column-->
+                            <div class="col-md-5 col-12">
+                                <!-- Email input -->
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="email" style="color: lightgray !important;" id="email"
+                                        class="form-control" name="email" maxlength=50 required
+                                        data-mdb-showcounter="true" />
+                                    <label class="form-label" for="email" style="color: lightgray !important;">Email</label>
+                                    <div class="form-helper"></div>
+                                </div>
+                            </div>
+                            <!--Grid column-->
+
+                            <!--Grid column-->
+                            <div class="col-auto">
+                                <!-- Submit button -->
+                                <button data-mdb-ripple-init type="submit" class="btn btn-outline btn-primary mb-4">
+                                    Subscribe
+                                </button>
+                            </div>
+                            <!--Grid column-->
+                        </div>
+                        <!--Grid row-->
+                    </form>
+                </section>
+                <!-- Section: Form -->
+
+                <!-- Section: Text -->
+                <section class="mb-4">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+                        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
+                        harum corrupti dicta, aliquam sequi voluptate quas.
+                    </p>
+                </section>
+                <!-- Section: Text -->
+
+                <!-- Section: Links -->
+                <section class="">
+                    <!--Grid row-->
+                    <div class="row">
+                        <!--Grid column-->
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                            <h5 class="text-uppercase">Links</h5>
+
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a class="text-body" href="#!">Link 1</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 2</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 3</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 4</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                            <h5 class="text-uppercase">Links</h5>
+
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a class="text-body" href="#!">Link 1</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 2</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 3</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 4</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                            <h5 class="text-uppercase">Links</h5>
+
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a class="text-body" href="#!">Link 1</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 2</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 3</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 4</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                            <h5 class="text-uppercase">Links</h5>
+
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a class="text-body" href="#!">Link 1</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 2</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 3</a>
+                                </li>
+                                <li>
+                                    <a class="text-body" href="#!">Link 4</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Grid column-->
+                    </div>
+                    <!--Grid row-->
+                </section>
+                <!-- Section: Links -->
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2020 Copyright:
+                <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            </div>
         </div>
-        <div class="gradient-background__noise"></div>
-    </div>
+        <!-- Copyright -->
+    </footer>
 
-</div>
-<script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<script src="/static/js/base.js"></script>
-<script src="https://unpkg.com/gsap@3/dist/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js" defer></script>
-<script src="https://cdn.tailwindcss.com" defer></script>
-<script src="/static/js/homePage.js" defer></script>
+
+    <!--Main layout-->
+    <script src="https://mdbootstrap.com/api/snippets/static/download/MDB5-Free_5.0.0/js/mdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script></script>
+    <script type="text/javascript"
+        src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/mdb-plugins-gathered.min.js"></script>
 </body>
+
 </html>

@@ -10,7 +10,5 @@
     <include file="changelogs/0_schema.xml" relativeToChangelogFile="true"/>
     <include file="changelogs/1_tables.xml" relativeToChangelogFile="true"/>
     <include file="changelogs/2_update_tables.xml" relativeToChangelogFile="true"/>
-    <include file="changelogs/3_create_course_and_task_tables.xml" relativeToChangelogFile="true"/>
-    <include file="changelogs/4_alter_table_main_contact.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
