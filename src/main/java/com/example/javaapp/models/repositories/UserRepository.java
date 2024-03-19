@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Repository
 public class UserRepository {
-
     private static final String INSERT = "INSERT INTO authentication.user (name, email, password, phone) VALUES(:name, :email, :password, :phone)";
     private static final String FIND_BY_EMAIL = "SELECT * FROM authentication.user WHERE email = :email";
     private static final String FIND_BY_ID = "SELECT * FROM authentication.user WHERE id = :id";
@@ -18,8 +17,8 @@ public class UserRepository {
 
     public UserRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
-    }
 
+    }
     public Optional<User> add(User user) {
         long affected = jdbcClient.sql(INSERT)
                 .param("name", user.name())
@@ -29,6 +28,7 @@ public class UserRepository {
                 .update();
 
         Assert.isTrue(affected == 1, "Could not add user.");
+
         return findByEmail(user.email());
     }
 

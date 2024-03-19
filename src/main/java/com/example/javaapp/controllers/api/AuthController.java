@@ -101,3 +101,8 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
+
+// Token = Users' ID
+// JWT
+// пользователь получает TOKEN_ENCRYPTED, он за
+//
